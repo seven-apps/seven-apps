@@ -9,7 +9,7 @@
     "package.json"
   ],
   "license": "ISC",
-  "repository": "https://github.com/seven-apps/seven-apps",
+  "repository": "https://github.com/seven-apps/seven-apps.git",
   "publishConfig": {
     "access": "public"
   },
