@@ -8,12 +8,13 @@
   ],
   "author": "sevenapps",
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": "https://github.com/seven-apps/seven-apps",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "compile": "rollup -c",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "devDependencies": {
