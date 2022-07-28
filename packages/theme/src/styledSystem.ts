@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { metrics } from "./metrics";
 
@@ -26,7 +26,7 @@ export const paddingProps = ({ p, ph, pv, pr, pl, pt, pb, theme }) => `
     ${pt ? `padding-top: ${hp(pt)};` : ""}
     ${pb ? `padding-bottom: ${hp(pb)};` : ""}
   `;
-
+/* 
 export const paddingPropsTypes = {
   p: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ph: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -35,7 +35,7 @@ export const paddingPropsTypes = {
   pl: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pt: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pb: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
+}; */
 
 export const marginProps = ({ m, mh, mv, mr, ml, mt, mb }) => `
     ${m ? `margin: ${hp(m)};` : ""}
@@ -46,7 +46,7 @@ export const marginProps = ({ m, mh, mv, mr, ml, mt, mb }) => `
     ${mt ? `margin-top: ${hp(mt)};` : ""}
     ${mb ? `margin-bottom: ${hp(mb)};` : ""}
   `;
-
+/* 
 export const marginPropsTypes = {
   m: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   mh: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -55,7 +55,7 @@ export const marginPropsTypes = {
   ml: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   mt: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   mb: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
+}; */
 
 // add alias para o theme do styled-components
 export const sizeProps = ({
@@ -93,7 +93,7 @@ export const sizeProps = ({
   ${left ? `left: ${hp(left)};` : ""}
   ${right ? `right: ${hp(right)};` : ""}
   `;
-
+/* 
 export const sizePropsTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -113,19 +113,19 @@ export const sizePropsTypes = {
   bottom: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   left: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   right: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
+}; */
 
 // add bg
 export const colorProps = ({ color, bg, theme }) => `
   ${color ? `color: ${getColor(theme.colors, color)};` : ""}
   ${bg ? `background-color: ${getColor(theme.colors, bg)};` : ""}
   `;
-
+/* 
 export const colorPropsTypes = {
   color: PropTypes.string,
   bgColor: PropTypes.string,
 };
-
+ */
 export const flexProps = ({
   flex,
   flexDir,
@@ -143,7 +143,7 @@ export const flexProps = ({
   ${alignItems ? `align-items: ${alignItems};` : ""}
   ${alignSelf ? `align-self: ${alignSelf};` : ""}
 `;
-
+/* 
 export const flexPropsTypes = {
   flex: PropTypes.number,
   flexDir: PropTypes.oneOf(["row", "column", "column-reverse", "row-reverse"]),
@@ -170,7 +170,7 @@ export const flexPropsTypes = {
     "stretch",
     "baseline",
   ]),
-};
+}; */
 
 const fontFamilies = {
   semiBold: "Montserrat-Semibold",
@@ -221,7 +221,7 @@ export const borderProps = ({
   ${bottomLeftRadius ? `border-bottom-left-radius: ${bottomLeftRadius}px;` : ""}
   ${borderColor ? `border-color: ${getColor(theme.colors, borderColor)};` : ""}
 `;
-
+/* 
 export const borderPropsTypes = {
   borderWidth: PropTypes.number,
   borderTop: PropTypes.number,
@@ -235,3 +235,4 @@ export const borderPropsTypes = {
   bottomLeftRadius: PropTypes.number,
   borderColor: PropTypes.string,
 };
+ */
