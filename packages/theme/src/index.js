@@ -1,7 +1,7 @@
-import { metrics } from "./metrics";
+export * from "./metrics";
+export * from "./styledSystem";
+import { SevenProvider } from "./Provider";
 
 export { metrics };
 
-export default {
-  ...metrics,
-};
+export default SevenProvider;
