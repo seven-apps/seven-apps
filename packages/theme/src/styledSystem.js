@@ -16,8 +16,9 @@ const getColor = (colors, key) => {
   return colors[key] || ((key.includes("rgb") || key.includes("#")) && key);
 };
 
-export const paddingProps = ({ p, ph, pv, pr, pl, pt, pb }) => `
-    ${p ? `padding: ${hp(p)};` : ""}
+// alias
+export const paddingProps = ({ p, ph, pv, pr, pl, pt, pb, theme }) => `
+    ${p ? `padding: ${hp(theme?.sizes[p] || p)};` : ""}
     ${ph ? `padding-horizontal: ${wp(ph)};` : ""}
     ${pv ? `padding-vertical: ${hp(pv)};` : ""}
     ${pr ? `padding-right: ${wp(pr)};` : ""}
@@ -58,6 +59,8 @@ export const marginPropsTypes = {
 
 // add alias para o theme do styled-components
 export const sizeProps = ({
+  h,
+  w,
   height,
   maxHeight,
   minHeight,
@@ -74,10 +77,10 @@ export const sizeProps = ({
   left,
   right,
 }) => `
-  ${height ? `height: ${hp(height)};` : ""}
+  ${height || h ? `height: ${hp(height || h)};` : ""}
   ${maxHeight ? `max-height: ${hp(maxHeight)};` : ""}
   ${minHeight ? `min-height: ${hp(minHeight)};` : ""}
-  ${width ? `width: ${wp(width)};` : ""}
+  ${width || w ? `width: ${wp(width || w)};` : ""}
   ${maxWidth ? `max-width: ${wp(maxWidth)};` : ""}
   ${minWidth ? `min-width: ${wp(minWidth)};` : ""}
   ${fontSize ? `font-size: ${hp(fontSize)};` : ""}
@@ -113,9 +116,9 @@ export const sizePropsTypes = {
 };
 
 // add bg
-export const colorProps = ({ color, bgColor, theme }) => `
-  ${color ? `color: ${getColor(theme, color)};` : ""}
-  ${bgColor ? `background-color: ${getColor(theme, bgColor)};` : ""}
+export const colorProps = ({ color, bg, theme }) => `
+  ${color ? `color: ${getColor(theme.colors, color)};` : ""}
+  ${bg ? `background-color: ${getColor(theme.colors, bg)};` : ""}
   `;
 
 export const colorPropsTypes = {
@@ -216,7 +219,7 @@ export const borderProps = ({
       : ""
   }
   ${bottomLeftRadius ? `border-bottom-left-radius: ${bottomLeftRadius}px;` : ""}
-  ${borderColor ? `border-color: ${getColor(theme, borderColor)};` : ""}
+  ${borderColor ? `border-color: ${getColor(theme.colors, borderColor)};` : ""}
 `;
 
 export const borderPropsTypes = {
