@@ -9,7 +9,7 @@ const scaleWidth = width / baseWidth;
 const scaleHeight = height / baseHeight;
 const scale = Math.min(scaleWidth, scaleHeight);
 
-const wp = (width, onlyNumber = false) => {
+const wp = (width: string | number, onlyNumber: boolean = false) => {
   if (typeof width !== "number") return width;
 
   const result = Math.ceil(width * 4 * scale);
@@ -17,7 +17,7 @@ const wp = (width, onlyNumber = false) => {
   return onlyNumber ? result : `${result}px`;
 };
 
-const hp = (height, onlyNumber = false) => {
+const hp = (height: string | number, onlyNumber: boolean = false) => {
   if (typeof height !== "number") return height;
 
   const result = Math.ceil(height * 8.5 * scale);
@@ -26,7 +26,7 @@ const hp = (height, onlyNumber = false) => {
 
 const figmaWidth = 375;
 
-const px = (valuePx, onlyNumber) => {
+const px = (valuePx: number, onlyNumber: boolean) => {
   const widthPercent = (valuePx / figmaWidth) * 100;
   const result = PixelRatio.roundToNearestPixel(
     (width * parseFloat(String(widthPercent))) / 100

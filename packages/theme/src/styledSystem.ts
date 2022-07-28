@@ -1,11 +1,9 @@
-// import PropTypes from "prop-types";
-
 import { metrics } from "./metrics";
 
 const wp = metrics.wp;
 const hp = metrics.hp;
 
-const getColor = (colors, key) => {
+const getColor = (colors: any, key: string) => {
   if (!key) return null;
 
   if (key.includes(".")) {
@@ -16,8 +14,32 @@ const getColor = (colors, key) => {
   return colors[key] || ((key.includes("rgb") || key.includes("#")) && key);
 };
 
-// alias
-export const paddingProps = ({ p, ph, pv, pr, pl, pt, pb, theme }) => `
+type ThemeProps = {
+  colors: any;
+  sizes: any;
+};
+
+interface PaddingProps {
+  p: "string" | "number";
+  ph: "string" | "number";
+  pv: "string" | "number";
+  pr: "string" | "number";
+  pl: "string" | "number";
+  pt: "string" | "number";
+  pb: "string" | "number";
+  theme: ThemeProps;
+}
+
+export const paddingProps = ({
+  p,
+  ph,
+  pv,
+  pr,
+  pl,
+  pt,
+  pb,
+  theme,
+}: PaddingProps) => `
     ${p ? `padding: ${hp(theme?.sizes[p] || p)};` : ""}
     ${ph ? `padding-horizontal: ${wp(ph)};` : ""}
     ${pv ? `padding-vertical: ${hp(pv)};` : ""}
@@ -37,7 +59,17 @@ export const paddingPropsTypes = {
   pb: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }; */
 
-export const marginProps = ({ m, mh, mv, mr, ml, mt, mb }) => `
+interface MarginProps {
+  m: "string" | "number";
+  mh: "string" | "number";
+  mv: "string" | "number";
+  mr: "string" | "number";
+  ml: "string" | "number";
+  mt: "string" | "number";
+  mb: "string" | "number";
+}
+
+export const marginProps = ({ m, mh, mv, mr, ml, mt, mb }: MarginProps) => `
     ${m ? `margin: ${hp(m)};` : ""}
     ${mh ? `margin-horizontal: ${wp(mh)};` : ""}
     ${mv ? `margin-vertical: ${hp(mv)};` : ""}
@@ -58,6 +90,27 @@ export const marginPropsTypes = {
 }; */
 
 // add alias para o theme do styled-components
+
+interface SizeProps {
+  h: number | string;
+  w: number | string;
+  height: number | string;
+  maxHeight: number | string;
+  minHeight: number | string;
+  width: number | string;
+  maxWidth: number | string;
+  minWidth: number | string;
+  fontSize: number | string;
+  fluid: boolean | "vertical" | "horizontal";
+  overflow: string;
+  position: string;
+  zIndex: number;
+  top: number | string;
+  bottom: number | string;
+  left: number | string;
+  right: number | string;
+}
+
 export const sizeProps = ({
   h,
   w,
@@ -76,7 +129,7 @@ export const sizeProps = ({
   bottom,
   left,
   right,
-}) => `
+}: SizeProps) => `
   ${height || h ? `height: ${hp(height || h)};` : ""}
   ${maxHeight ? `max-height: ${hp(maxHeight)};` : ""}
   ${minHeight ? `min-height: ${hp(minHeight)};` : ""}
@@ -126,6 +179,22 @@ export const colorPropsTypes = {
   bgColor: PropTypes.string,
 };
  */
+
+interface FlexProps {
+  flex: number;
+  flexDir: "row" | "column" | "column-reverse" | "row-reverse";
+  flexGrow: number;
+  flexWrap: "nowrap" | "wrap" | "wrap-reverse";
+  justifyContent:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around";
+  alignItems: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+  alignSelf: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+}
+
 export const flexProps = ({
   flex,
   flexDir,
@@ -134,7 +203,7 @@ export const flexProps = ({
   justifyContent,
   alignItems,
   alignSelf,
-}) => `
+}: FlexProps) => `
   ${flex ? `flex: ${flex};` : ""}
   ${flexDir ? `flex-direction: ${flexDir};` : ""}
   ${flexGrow ? `flex-grow: ${flexGrow};` : ""}
@@ -179,17 +248,39 @@ const fontFamilies = {
   regular: "Montserrat-Regular",
 };
 
+interface FontProps {
+  fontFamily: "regular" | "medium" | "semiBold" | "bold";
+  underline: boolean;
+  align: "left" | "center" | "right";
+  letterSpacing: number;
+}
+
 export const fontProps = ({
   fontFamily = "semiBold",
   underline,
   align,
   letterSpacing,
-}) => `
+}: FontProps): string => `
   ${fontFamily && `font-family: ${fontFamilies[fontFamily]};`}
   ${underline ? `text-decoration-line: underline;` : ""}
   ${align ? `text-align: ${align};` : ""}
   ${letterSpacing ? `letter-spacing: ${wp(letterSpacing, true) * 0.03}px;` : ""}
 `;
+
+interface BorderProps {
+  borderWidth: number;
+  borderTop: number;
+  borderBottom: number;
+  borderLeft: number;
+  borderRight: number;
+  radius: number;
+  topLeftRadius: number;
+  topRightRadius: number;
+  bottomRightRadius: number;
+  bottomLeftRadius: number;
+  borderColor: string;
+  theme: ThemeProps;
+}
 
 export const borderProps = ({
   borderWidth,
@@ -204,7 +295,7 @@ export const borderProps = ({
   bottomLeftRadius,
   borderColor,
   theme,
-}) => `
+}: BorderProps) => `
   ${borderWidth ? `border-width: ${borderWidth}px;` : ""}
   ${borderTop ? `border-top-width: ${borderTop}px;` : ""}
   ${borderBottom ? `border-bottom-width: ${borderBottom}px;` : ""}
