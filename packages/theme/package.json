@@ -1,11 +1,12 @@
 {
   "name": "@seven/theme",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "theme and style system ",
   "author": "sevenapps",
   "main": "dist/index.js",
   "files": [
     "dist/",
+    "src/",
     "package.json"
   ],
   "license": "ISC",
@@ -27,5 +28,5 @@
     "rollup": "^2.77.1",
     "rollup-plugin-babel": "^4.4.0"
   },
-  "gitHead": "6b28738f993d2234c38ff3c9c59a8c989b83fe62"
+  "gitHead": "ddbd48d20ce5d32a89394c920f780bec910d1df0"
 }
