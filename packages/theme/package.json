@@ -1,6 +1,6 @@
 {
-  "name": "@seven/theme",
-  "version": "0.0.6",
+  "name": "@sevenapps/theme",
+  "version": "0.0.10",
   "description": "theme and style system ",
   "author": "sevenapps",
   "main": "dist/index.js",
@@ -28,5 +28,5 @@
     "rollup": "^2.77.1",
     "rollup-plugin-babel": "^4.4.0"
   },
-  "gitHead": "ddbd48d20ce5d32a89394c920f780bec910d1df0"
+  "gitHead": "d5b165ab1ae814cbddc73c1b922ce465963228b1"
 }
