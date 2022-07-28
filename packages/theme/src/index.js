@@ -1,3 +1,7 @@
-export const logger = () => {
-  console.log("meu primeiro package");
+import { metrics } from "./metrics";
+
+export { metrics };
+
+export default {
+  ...metrics,
 };
