@@ -1,4 +1,4 @@
-import babel from "@rollup/plugin-babel";
+// import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
@@ -15,29 +15,29 @@ export default {
       file: "dist/index.js",
       format: "cjs",
       sourcemap: false,
-      external,
+      //external,
     },
     {
       file: "dist/index.esm.js",
       format: "es",
       sourcemap: false,
-      external,
+      // external,
     },
   ],
   plugins: [
-    nodeResolve(),
+    //  nodeResolve(),
     json(),
     commonjs({
       include: /node_modules/,
       esmExternals: true,
     }),
     typescript(),
-    babel({
+    /*  babel({
       extensions,
       exclude: /node_modules/,
       babelHelpers: "bundled",
       babelrc: true,
       plugins: ["@babel/plugin-proposal-object-rest-spread"],
-    }),
+    }), */
   ],
 };
