@@ -2,7 +2,7 @@ import typescript from "@rollup/plugin-typescript";
 //import resolve from "@rollup/plugin-node-resolve";
 
 export default {
-  input: "src/index.ts",
+  input: "src/index.tsx",
   output: [
     {
       file: "dist/index.js",

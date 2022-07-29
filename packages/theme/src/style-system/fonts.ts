@@ -23,5 +23,9 @@ export const fontProps = ({
   ${fontFamily && `font-family: ${fontFamilies[fontFamily]};`}
   ${underline ? `text-decoration-line: underline;` : ""}
   ${align ? `text-align: ${align};` : ""}
-  ${letterSpacing ? `letter-spacing: ${px(letterSpacing, true) * 0.03}px;` : ""}
+  ${
+    letterSpacing
+      ? `letter-spacing: ${Number(px(letterSpacing, true)) * 0.03};`
+      : ""
+  }
 `;
