@@ -1,20 +1,21 @@
 import { ThemeInterface } from "..";
+import { ColorTypes } from "../foundation/colors";
+import { SizesTypes } from "../foundation/sizes";
 import px from "../metrics";
 import { getColor } from "./colors";
 
 export interface BorderProps {
-  bw?: number;
-  btw?: number;
-  bbw?: number;
-  blw?: number;
-  brw?: number;
-  br?: number;
-  topLeftRadius?: number;
-  topRightRadius?: number;
-  bottomRightRadius?: number;
-  bottomLeftRadius?: number;
-  borderColor?: string;
-  theme: ThemeInterface;
+  bw?: SizesTypes | number;
+  btw?: SizesTypes | number;
+  bbw?: SizesTypes | number;
+  blw?: SizesTypes | number;
+  brw?: SizesTypes | number;
+  br?: SizesTypes | number;
+  topLeftRadius?: SizesTypes | number;
+  topRightRadius?: SizesTypes | number;
+  bottomRightRadius?: SizesTypes | number;
+  bottomLeftRadius?: SizesTypes | number;
+  borderColor?: ColorTypes | string;
 }
 
 export const borderProps = ({
@@ -30,13 +31,15 @@ export const borderProps = ({
   bottomLeftRadius,
   borderColor,
   theme,
-}: BorderProps) => `
-  ${bw ? `border-width: ${px(bw)};` : ""}
-  ${btw ? `border-top-width: ${px(btw)};` : ""}
-  ${bbw ? `border-bottom-width: ${px(bbw)};` : ""}
-  ${blw ? `border-left-width: ${px(blw)};` : ""}
-  ${brw ? `border-right-width: ${px(brw)};` : ""}
-  ${br ? `border-radius: ${px(br)};` : ""}
+}: BorderProps & {
+  theme: ThemeInterface;
+}) => `
+  ${bw ? `border-width: ${px(theme.sizes[bw] || bw)};` : ""}
+  ${btw ? `border-top-width: ${px(theme.sizes[btw] || btw)};` : ""}
+  ${bbw ? `border-bottom-width: ${px(theme.sizes[bbw] || bbw)};` : ""}
+  ${blw ? `border-left-width: ${px(theme.sizes[blw] || blw)};` : ""}
+  ${brw ? `border-right-width: ${px(theme.sizes[brw] || brw)};` : ""}
+  ${br ? `border-radius: ${px(theme.sizes[br] || br)};` : ""}
   ${
     topLeftRadius
       ? `border-top-left-radius: ${px(

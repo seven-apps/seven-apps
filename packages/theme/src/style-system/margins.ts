@@ -1,15 +1,15 @@
 import px from "../metrics";
 import { ThemeInterface } from "..";
+import { SizesTypes } from "../foundation/sizes";
 
 export interface MarginProps {
-  m?: number;
-  mh?: number;
-  mv?: number;
-  mr?: number;
-  ml?: number;
-  mt?: number;
-  mb?: number;
-  theme: ThemeInterface;
+  m?: SizesTypes | number;
+  mh?: SizesTypes | number;
+  mv?: SizesTypes | number;
+  mr?: SizesTypes | number;
+  ml?: SizesTypes | number;
+  mt?: SizesTypes | number;
+  mb?: SizesTypes | number;
 }
 
 export const marginProps = ({
@@ -21,7 +21,9 @@ export const marginProps = ({
   mt,
   mb,
   theme,
-}: MarginProps) => `
+}: MarginProps & {
+  theme: ThemeInterface;
+}) => `
     ${m ? `margin: ${px(theme?.sizes[m]) || m};` : ""}
     ${mh ? `margin-horizontal: ${px(theme?.sizes[mh]) || mh};` : ""}
     ${mv ? `margin-vertical: ${px(theme?.sizes[mv]) || mv};` : ""}

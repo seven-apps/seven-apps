@@ -1,9 +1,9 @@
 import { ThemeInterface } from "..";
+import { ColorTypes } from "../foundation/colors";
 
 export interface ColorsInterface {
-  color?: string;
-  bg?: string;
-  theme: ThemeInterface;
+  color?: ColorTypes | string;
+  bg?: ColorTypes | string;
 }
 
 export const getColor = (colors: any, key: string) => {
@@ -17,7 +17,13 @@ export const getColor = (colors: any, key: string) => {
   return colors[key] || ((key.includes("rgb") || key.includes("#")) && key);
 };
 
-export const colorProps = ({ color, bg, theme }: ColorsInterface) => `
+export const colorProps = ({
+  color,
+  bg,
+  theme,
+}: ColorsInterface & {
+  theme: ThemeInterface;
+}) => `
   ${color ? `color: ${getColor(theme.colors, color)};` : ""}
   ${bg ? `background-color: ${getColor(theme.colors, bg)};` : ""}
   `;

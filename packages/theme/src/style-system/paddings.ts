@@ -1,15 +1,15 @@
 import px from "../metrics";
 import { ThemeInterface } from "..";
+import { SizesTypes } from "../foundation/sizes";
 
 export interface PaddingProps {
-  p?: number;
-  ph?: number;
-  pv?: number;
-  pr?: number;
-  pl?: number;
-  pt?: number;
-  pb?: number;
-  theme: ThemeInterface;
+  p?: SizesTypes | number;
+  ph?: SizesTypes | number;
+  pv?: SizesTypes | number;
+  pr?: SizesTypes | number;
+  pl?: SizesTypes | number;
+  pt?: SizesTypes | number;
+  pb?: SizesTypes | number;
 }
 
 export const paddingProps = ({
@@ -21,7 +21,9 @@ export const paddingProps = ({
   pt,
   pb,
   theme,
-}: PaddingProps) => `
+}: PaddingProps & {
+  theme: ThemeInterface;
+}) => `
     ${p ? `padding: ${px(theme?.sizes[p] || p)};` : ""}
     ${ph ? `padding-horizontal: ${px(theme?.sizes[ph] || ph)};` : ""}
     ${pv ? `padding-vertical: ${px(theme?.sizes[pv] || pv)};` : ""}

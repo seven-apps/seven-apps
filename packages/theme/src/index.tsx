@@ -20,6 +20,16 @@ export interface ThemeInterface extends ThemeProps<any> {
   fontSizes: any;
 }
 
+/* 
+
+DefaultProps 
+
+colors
+sizes,
+componets
+fontSizes
+*/
+
 const SevenProvider = ({ children, theme }) => {
   return (
     <ThemeProvider

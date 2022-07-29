@@ -20,7 +20,6 @@ export interface SizeProps {
   bottom?: number;
   left?: number;
   right?: number;
-  theme: ThemeInterface;
 }
 
 export const sizeProps = ({
@@ -42,11 +41,32 @@ export const sizeProps = ({
   left,
   right,
   theme,
-}: SizeProps) => `
-  ${h ? `height: ${typeof h === "string" ? theme.sizes(h) || h : px(h)};` : ""}
-  ${w ? `height: ${px(w)};` : ""}
-  ${width ? `width: ${px(width)};` : ""}
-  ${height ? `height: ${px(height)};` : ""}
+}: SizeProps & {
+  theme: ThemeInterface;
+}) => `
+  ${h ? `height: ${typeof h === "string" ? theme.sizes[h] || h : px(h)};` : ""}
+  ${
+    height
+      ? `height: ${
+          typeof height === "string"
+            ? theme.sizes[height] || height
+            : px(height)
+        };`
+      : ""
+  }
+  ${
+    w
+      ? `width: ${typeof w === "string" ? theme.sizes[w] || width : px(w)};`
+      : ""
+  }
+  ${
+    width
+      ? `width: ${
+          typeof width === "string" ? theme.sizes[width] || width : px(width)
+        };`
+      : ""
+  }
+ 
   ${maxH ? `max-height: ${px(maxH)};` : ""}
   ${minH ? `min-height: ${px(minH)};` : ""}
   ${maxW ? `max-width: ${px(maxW)};` : ""}
