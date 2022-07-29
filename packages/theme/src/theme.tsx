@@ -1,9 +1,8 @@
-import styled, { ThemeProvider } from "./styled-components";
 import sizes from "./foundation/sizes";
 import colors from "./foundation/colors";
 import fontSizes from "./foundation/fontSizes";
 
-export type CustonThemeProps = typeof sevenTheme;
+export type SevenThemeProps = typeof sevenTheme;
 
 const sevenTheme = {
   sizes,
@@ -12,7 +11,7 @@ const sevenTheme = {
   components: {},
 };
 
-const extendTheme = (theme: any) => ({
+export const withSevenTheme = (theme: any) => ({
   ...sevenTheme,
   ...(theme || {}),
   colors: {
@@ -32,9 +31,3 @@ const extendTheme = (theme: any) => ({
     ...(theme.components || {}),
   },
 });
-
-export const SevenProvider = ({ children, theme }) => {
-  return <ThemeProvider theme={extendTheme(theme)}>{children}</ThemeProvider>;
-};
-
-export default styled;

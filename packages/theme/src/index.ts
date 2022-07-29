@@ -10,6 +10,3 @@ export * from "./style-system/fonts";
 export * from "./style-system/borders";
 
 export * from "./theme";
-
-import s from "./theme";
-export default s;

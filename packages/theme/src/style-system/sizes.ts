@@ -1,10 +1,8 @@
 import px from "../metrics";
-import { CustonThemeProps } from "..";
 import { SizesTypes } from "../foundation/sizes";
 import { FontTypes } from "../foundation/fontSizes";
-import { DefaultTheme } from "styled-components/native";
 
-export interface SizeProps extends CustonThemeProps {
+export interface SizeProps {
   h?: number | string | SizesTypes;
   w?: number | string | SizesTypes;
   height?: number | string | SizesTypes;
@@ -22,7 +20,7 @@ export interface SizeProps extends CustonThemeProps {
   bottom?: number;
   left?: number;
   right?: number;
-  theme?: DefaultTheme;
+  theme?: any;
 }
 
 export const sizeProps = ({

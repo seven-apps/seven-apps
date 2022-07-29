@@ -4,7 +4,7 @@ import { ColorTypes } from "../foundation/colors";
 export interface ColorsInterface {
   color?: ColorTypes | string;
   bg?: ColorTypes | string;
-  theme: DefaultTheme;
+  theme?: any;
 }
 
 export const getColor = (colors: any, key: string) => {

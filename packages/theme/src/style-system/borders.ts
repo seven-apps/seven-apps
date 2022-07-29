@@ -1,4 +1,3 @@
-import { DefaultTheme } from "styled-components/native";
 import { ColorTypes } from "../foundation/colors";
 import { SizesTypes } from "../foundation/sizes";
 import px from "../metrics";
@@ -16,7 +15,7 @@ export interface BorderProps {
   bottomRightRadius?: SizesTypes | number;
   bottomLeftRadius?: SizesTypes | number;
   borderColor?: ColorTypes | string;
-  theme?: DefaultTheme;
+  theme?: any;
 }
 
 export const borderProps = ({

@@ -11,6 +11,7 @@ export interface FlexProps {
     | "space-around";
   alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
   alignSelf?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+  theme?: any;
 }
 
 export const flexProps = ({

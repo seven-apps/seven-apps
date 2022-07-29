@@ -1,5 +1,4 @@
 import px from "../metrics";
-import { DefaultTheme } from "styled-components/native";
 import { SizesTypes } from "../foundation/sizes";
 
 export interface MarginProps {
@@ -10,7 +9,7 @@ export interface MarginProps {
   ml?: SizesTypes | number;
   mt?: SizesTypes | number;
   mb?: SizesTypes | number;
-  theme?: DefaultTheme;
+  theme?: any;
 }
 
 export const marginProps = ({

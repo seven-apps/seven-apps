@@ -1,6 +1,5 @@
 import px from "../metrics";
 import { SizesTypes } from "../foundation/sizes";
-import { DefaultTheme } from "styled-components/native";
 
 export interface PaddingProps {
   p?: SizesTypes | number;
@@ -10,7 +9,7 @@ export interface PaddingProps {
   pl?: SizesTypes | number;
   pt?: SizesTypes | number;
   pb?: SizesTypes | number;
-  theme?: DefaultTheme;
+  theme?: any;
 }
 
 export const paddingProps = ({
