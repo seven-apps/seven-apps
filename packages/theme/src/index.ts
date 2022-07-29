@@ -11,6 +11,5 @@ export * from "./style-system/borders";
 
 export * from "./theme";
 
-import SevenProvider from "./theme";
-
-export default SevenProvider;
+import s from "./theme";
+export default s;

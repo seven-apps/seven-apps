@@ -1,6 +1,7 @@
 import px from "../metrics";
 import { ThemeInterface } from "..";
 import { SizesTypes } from "../foundation/sizes";
+import { FontTypes } from "../foundation/fontSizes";
 
 export interface SizeProps {
   h?: number | string | SizesTypes;
@@ -11,7 +12,7 @@ export interface SizeProps {
   width?: number | string | SizesTypes;
   maxW?: number;
   minW?: number;
-  fontSize?: number;
+  fontSize?: number | FontTypes;
   fluid?: boolean | "vertical" | "horizontal";
   overflow?: string;
   position?: string;

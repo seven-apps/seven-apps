@@ -1,7 +1,9 @@
-import baseStyled, {
+import styled, {
   ThemeProvider,
   ReactNativeStyledInterface,
   DefaultTheme,
+  withTheme,
+  useTheme,
 } from "styled-components/native";
 import sizes from "./foundation/sizes";
 import colors from "./foundation/colors";
@@ -11,7 +13,7 @@ export type ThemeProps = typeof sevenTheme;
 
 export interface ThemeInterface extends ThemeProps {}
 
-export const styled = baseStyled as ReactNativeStyledInterface<DefaultTheme>;
+export const s = styled as ReactNativeStyledInterface<DefaultTheme>;
 
 const sevenTheme = {
   sizes,
@@ -41,8 +43,10 @@ const extendTheme = (theme: any) => ({
   },
 });
 
-const SevenProvider = ({ children, theme }) => {
+export const SevenProvider = ({ children, theme }) => {
   return <ThemeProvider theme={extendTheme(theme)}>{children}</ThemeProvider>;
 };
 
-export default SevenProvider;
+export { withTheme, useTheme };
+
+export default s;
