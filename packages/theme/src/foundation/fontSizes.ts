@@ -10,4 +10,6 @@ const fontSizes = {
   "3xl": 24,
 };
 
+export type SizesTypes = keyof typeof fontSizes;
+
 export default fontSizes;

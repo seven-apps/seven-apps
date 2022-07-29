@@ -1,13 +1,14 @@
 import px from "../metrics";
 import { ThemeInterface } from "..";
+import { SizesTypes } from "../foundation/sizes";
 
 export interface SizeProps {
-  h?: number;
-  w?: number;
-  height?: number;
+  h?: number | string | SizesTypes;
+  w?: number | string | SizesTypes;
+  height?: number | string | SizesTypes;
   maxH?: number;
   minH?: number;
-  width?: number;
+  width?: number | string | SizesTypes;
   maxW?: number;
   minW?: number;
   fontSize?: number;
@@ -42,12 +43,12 @@ export const sizeProps = ({
   right,
   theme,
 }: SizeProps) => `
-  ${h ? `height: ${px(h)};` : ""}
+  ${h ? `height: ${typeof h === "string" ? theme.sizes(h) || h : px(h)};` : ""}
+  ${w ? `height: ${px(w)};` : ""}
+  ${width ? `width: ${px(width)};` : ""}
   ${height ? `height: ${px(height)};` : ""}
   ${maxH ? `max-height: ${px(maxH)};` : ""}
   ${minH ? `min-height: ${px(minH)};` : ""}
-  ${width ? `width: ${px(width)};` : ""}
-  ${w ? `height: ${px(w)};` : ""}
   ${maxW ? `max-width: ${px(maxW)};` : ""}
   ${minW ? `min-width: ${px(minW)};` : ""}
   ${fontSize ? `font-size: ${px(theme?.fontSizes(fontSize) || fontSize)};` : ""}

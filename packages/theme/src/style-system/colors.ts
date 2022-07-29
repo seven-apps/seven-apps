@@ -1,6 +1,6 @@
 import { ThemeInterface } from "..";
 
-interface Colors {
+export interface ColorsInterface {
   color?: string;
   bg?: string;
   theme: ThemeInterface;
@@ -17,7 +17,7 @@ export const getColor = (colors: any, key: string) => {
   return colors[key] || ((key.includes("rgb") || key.includes("#")) && key);
 };
 
-export const colorProps = ({ color, bg, theme }: Colors) => `
+export const colorProps = ({ color, bg, theme }: ColorsInterface) => `
   ${color ? `color: ${getColor(theme.colors, color)};` : ""}
   ${bg ? `background-color: ${getColor(theme.colors, bg)};` : ""}
   `;
