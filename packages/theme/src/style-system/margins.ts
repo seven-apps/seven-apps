@@ -1,5 +1,5 @@
 import px from "../metrics";
-import { ThemeInterface } from "..";
+import { DefaultTheme } from "styled-components/native";
 import { SizesTypes } from "../foundation/sizes";
 
 export interface MarginProps {
@@ -10,6 +10,7 @@ export interface MarginProps {
   ml?: SizesTypes | number;
   mt?: SizesTypes | number;
   mb?: SizesTypes | number;
+  theme: DefaultTheme;
 }
 
 export const marginProps = ({
@@ -21,9 +22,7 @@ export const marginProps = ({
   mt,
   mb,
   theme,
-}: MarginProps & {
-  theme: ThemeInterface;
-}) => `
+}: MarginProps) => `
     ${m ? `margin: ${px(theme?.sizes[m]) || m};` : ""}
     ${mh ? `margin-horizontal: ${px(theme?.sizes[mh]) || mh};` : ""}
     ${mv ? `margin-vertical: ${px(theme?.sizes[mv]) || mv};` : ""}

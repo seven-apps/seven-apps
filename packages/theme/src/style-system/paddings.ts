@@ -1,6 +1,6 @@
 import px from "../metrics";
-import { ThemeInterface } from "..";
 import { SizesTypes } from "../foundation/sizes";
+import { DefaultTheme } from "styled-components/native";
 
 export interface PaddingProps {
   p?: SizesTypes | number;
@@ -10,6 +10,7 @@ export interface PaddingProps {
   pl?: SizesTypes | number;
   pt?: SizesTypes | number;
   pb?: SizesTypes | number;
+  theme: DefaultTheme;
 }
 
 export const paddingProps = ({
@@ -21,9 +22,7 @@ export const paddingProps = ({
   pt,
   pb,
   theme,
-}: PaddingProps & {
-  theme: ThemeInterface;
-}) => `
+}: PaddingProps) => `
     ${p ? `padding: ${px(theme?.sizes[p] || p)};` : ""}
     ${ph ? `padding-horizontal: ${px(theme?.sizes[ph] || ph)};` : ""}
     ${pv ? `padding-vertical: ${px(theme?.sizes[pv] || pv)};` : ""}

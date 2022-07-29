@@ -1,9 +1,10 @@
 import px from "../metrics";
-import { ThemeInterface } from "..";
+import { CustonThemeProps } from "..";
 import { SizesTypes } from "../foundation/sizes";
 import { FontTypes } from "../foundation/fontSizes";
+import { DefaultTheme } from "styled-components/native";
 
-export interface SizeProps {
+export interface SizeProps extends CustonThemeProps {
   h?: number | string | SizesTypes;
   w?: number | string | SizesTypes;
   height?: number | string | SizesTypes;
@@ -21,16 +22,8 @@ export interface SizeProps {
   bottom?: number;
   left?: number;
   right?: number;
+  theme: DefaultTheme;
 }
-
-const getSize = (size) => {
-  /* 
-    1. se é numero
-    2. se é um float <1
-    3. se é string e é um alias
-    4. se é string
-  */
-};
 
 export const sizeProps = ({
   h,
@@ -51,9 +44,7 @@ export const sizeProps = ({
   left,
   right,
   theme,
-}: SizeProps & {
-  theme: ThemeInterface;
-}) => `
+}: SizeProps) => `
   ${h ? `height: ${typeof h === "string" ? theme.sizes[h] || h : px(h)};` : ""}
   ${
     height
@@ -76,7 +67,7 @@ export const sizeProps = ({
   ${minH ? `min-height: ${px(minH)};` : ""}
   ${maxW ? `max-width: ${px(maxW)};` : ""}
   ${minW ? `min-width: ${px(minW)};` : ""}
-  ${fontSize ? `font-size: ${px(theme?.fontSizes(fontSize) || fontSize)};` : ""}
+  ${fontSize ? `font-size: ${px(theme?.fontSizes[fontSize] || fontSize)};` : ""}
   ${fluid ? (fluid === "vertical" ? "height: 100%;" : "width: 100%;") : ""}
   ${overflow ? `overflow: ${overflow};` : ""}
   ${position ? `position: ${position};` : ""}
