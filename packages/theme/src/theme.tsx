@@ -1,10 +1,3 @@
-/* import styled, {
-  ThemeProvider,
-  ReactNativeStyledInterface,
-  withTheme,
-  useTheme,
-  DefaultTheme,
-} from "styled-components/native"; */
 import styled, { ThemeProvider } from "./styled-components";
 import sizes from "./foundation/sizes";
 import colors from "./foundation/colors";
