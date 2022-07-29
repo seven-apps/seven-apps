@@ -22,6 +22,15 @@ export interface SizeProps {
   right?: number;
 }
 
+const getSize = (size) => {
+  /* 
+    1. se é numero
+    2. se é um float <1
+    3. se é string e é um alias
+    4. se é string
+  */
+};
+
 export const sizeProps = ({
   h,
   w,
@@ -54,11 +63,7 @@ export const sizeProps = ({
         };`
       : ""
   }
-  ${
-    w
-      ? `width: ${typeof w === "string" ? theme.sizes[w] || width : px(w)};`
-      : ""
-  }
+  ${w ? `width: ${typeof w === "string" ? theme.sizes[w] || w : px(w)};` : ""}
   ${
     width
       ? `width: ${
@@ -66,7 +71,6 @@ export const sizeProps = ({
         };`
       : ""
   }
- 
   ${maxH ? `max-height: ${px(maxH)};` : ""}
   ${minH ? `min-height: ${px(minH)};` : ""}
   ${maxW ? `max-width: ${px(maxW)};` : ""}

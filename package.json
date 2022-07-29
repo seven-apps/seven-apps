@@ -7,7 +7,7 @@
   "scripts": {
     "build:lib": "lerna run build:lib",
     "publish:lib": "lerna publish --force-publish=@seven/theme --no-git-tag-version --no-push",
-    "build::publish": "yarn build && yarn publish"
+    "build::publish": "yarn build:lib && yarn publish:lib"
   },
   "devDependencies": {
     "lerna": "^5.2.0"
