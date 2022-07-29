@@ -31,7 +31,7 @@ const SevenProvider = ({ children, theme }) => {
         },
         sizes: {
           ...sizes,
-          ...(theme.colors || {}),
+          ...(theme.sizes || {}),
         },
         fontSizes: {
           ...fontSizes,

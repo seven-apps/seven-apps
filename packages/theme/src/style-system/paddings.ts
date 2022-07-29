@@ -2,13 +2,13 @@ import px from "../metrics";
 import { ThemeInterface } from "..";
 
 export interface PaddingProps {
-  p: number;
-  ph: number;
-  pv: number;
-  pr: number;
-  pl: number;
-  pt: number;
-  pb: number;
+  p?: number;
+  ph?: number;
+  pv?: number;
+  pr?: number;
+  pl?: number;
+  pt?: number;
+  pb?: number;
   theme: ThemeInterface;
 }
 

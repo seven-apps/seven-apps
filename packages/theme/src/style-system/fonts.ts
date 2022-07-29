@@ -8,10 +8,10 @@ const fontFamilies = {
 };
 
 export interface FontProps {
-  fontFamily: "regular" | "medium" | "semiBold" | "bold";
-  underline: boolean;
-  align: "left" | "center" | "right";
-  letterSpacing: number;
+  fontFamily?: "regular" | "medium" | "semiBold" | "bold";
+  underline?: boolean;
+  align?: "left" | "center" | "right";
+  letterSpacing?: number;
 }
 
 export const fontProps = ({

@@ -3,17 +3,17 @@ import px from "../metrics";
 import { getColor } from "./colors";
 
 export interface BorderProps {
-  bw: number;
-  btw: number;
-  bbw: number;
-  blw: number;
-  brw: number;
-  br: number;
-  topLeftRadius: number;
-  topRightRadius: number;
-  bottomRightRadius: number;
-  bottomLeftRadius: number;
-  borderColor: string;
+  bw?: number;
+  btw?: number;
+  bbw?: number;
+  blw?: number;
+  brw?: number;
+  br?: number;
+  topLeftRadius?: number;
+  topRightRadius?: number;
+  bottomRightRadius?: number;
+  bottomLeftRadius?: number;
+  borderColor?: string;
   theme: ThemeInterface;
 }
 

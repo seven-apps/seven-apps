@@ -2,23 +2,23 @@ import px from "../metrics";
 import { ThemeInterface } from "..";
 
 export interface SizeProps {
-  h: number;
-  w: number;
-  height: number;
-  maxH: number;
-  minH: number;
-  width: number;
-  maxW: number;
-  minW: number;
-  fontSize: number;
-  fluid: boolean | "vertical" | "horizontal";
-  overflow: string;
-  position: string;
-  zIndex: number;
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
+  h?: number;
+  w?: number;
+  height?: number;
+  maxH?: number;
+  minH?: number;
+  width?: number;
+  maxW?: number;
+  minW?: number;
+  fontSize?: number;
+  fluid?: boolean | "vertical" | "horizontal";
+  overflow?: string;
+  position?: string;
+  zIndex?: number;
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
   theme: ThemeInterface;
 }
 
@@ -42,10 +42,12 @@ export const sizeProps = ({
   right,
   theme,
 }: SizeProps) => `
-  ${height || h ? `height: ${px(height || h)};` : ""}
+  ${h ? `height: ${px(h)};` : ""}
+  ${height ? `height: ${px(height)};` : ""}
   ${maxH ? `max-height: ${px(maxH)};` : ""}
   ${minH ? `min-height: ${px(minH)};` : ""}
-  ${width || w ? `width: ${px(width || w)};` : ""}
+  ${width ? `width: ${px(width)};` : ""}
+  ${w ? `height: ${px(w)};` : ""}
   ${maxW ? `max-width: ${px(maxW)};` : ""}
   ${minW ? `min-width: ${px(minW)};` : ""}
   ${fontSize ? `font-size: ${px(theme?.fontSizes(fontSize) || fontSize)};` : ""}

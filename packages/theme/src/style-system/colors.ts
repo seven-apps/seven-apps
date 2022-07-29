@@ -1,8 +1,8 @@
 import { ThemeInterface } from "..";
 
 interface Colors {
-  color: string;
-  bg: string;
+  color?: string;
+  bg?: string;
   theme: ThemeInterface;
 }
 
