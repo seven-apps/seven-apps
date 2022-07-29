@@ -16,7 +16,7 @@ export interface BorderProps {
   bottomRightRadius?: SizesTypes | number;
   bottomLeftRadius?: SizesTypes | number;
   borderColor?: ColorTypes | string;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }
 
 export const borderProps = ({
@@ -33,39 +33,39 @@ export const borderProps = ({
   borderColor,
   theme,
 }: BorderProps) => `
-  ${bw ? `border-width: ${px(theme.sizes[bw] || bw)};` : ""}
-  ${btw ? `border-top-width: ${px(theme.sizes[btw] || btw)};` : ""}
-  ${bbw ? `border-bottom-width: ${px(theme.sizes[bbw] || bbw)};` : ""}
-  ${blw ? `border-left-width: ${px(theme.sizes[blw] || blw)};` : ""}
-  ${brw ? `border-right-width: ${px(theme.sizes[brw] || brw)};` : ""}
-  ${br ? `border-radius: ${px(theme.sizes[br] || br)};` : ""}
+  ${bw ? `border-width: ${px(theme?.sizes[bw] || bw)};` : ""}
+  ${btw ? `border-top-width: ${px(theme?.sizes[btw] || btw)};` : ""}
+  ${bbw ? `border-bottom-width: ${px(theme?.sizes[bbw] || bbw)};` : ""}
+  ${blw ? `border-left-width: ${px(theme?.sizes[blw] || blw)};` : ""}
+  ${brw ? `border-right-width: ${px(theme?.sizes[brw] || brw)};` : ""}
+  ${br ? `border-radius: ${px(theme?.sizes[br] || br)};` : ""}
   ${
     topLeftRadius
       ? `border-top-left-radius: ${px(
-          theme.sizes[topLeftRadius] || topLeftRadius
+          theme?.sizes[topLeftRadius] || topLeftRadius
         )};`
       : ""
   }
   ${
     topRightRadius
       ? `border-top-right-radius: ${px(
-          theme.sizes[topRightRadius] || topRightRadius
+          theme?.sizes[topRightRadius] || topRightRadius
         )};`
       : ""
   }
   ${
     bottomRightRadius
       ? `border-bottom-right-radius: ${px(
-          theme.sizes[bottomRightRadius] || bottomRightRadius
+          theme?.sizes[bottomRightRadius] || bottomRightRadius
         )};`
       : ""
   }
   ${
     bottomLeftRadius
       ? `border-bottom-left-radius: ${px(
-          theme.sizes[bottomLeftRadius] || bottomLeftRadius
+          theme?.sizes[bottomLeftRadius] || bottomLeftRadius
         )};`
       : ""
   }
-  ${borderColor ? `border-color: ${getColor(theme.colors, borderColor)};` : ""}
+  ${borderColor ? `border-color: ${getColor(theme?.colors, borderColor)};` : ""}
   `;

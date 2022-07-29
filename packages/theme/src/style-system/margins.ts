@@ -10,7 +10,7 @@ export interface MarginProps {
   ml?: SizesTypes | number;
   mt?: SizesTypes | number;
   mb?: SizesTypes | number;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }
 
 export const marginProps = ({

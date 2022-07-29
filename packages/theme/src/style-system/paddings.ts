@@ -10,7 +10,7 @@ export interface PaddingProps {
   pl?: SizesTypes | number;
   pt?: SizesTypes | number;
   pb?: SizesTypes | number;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }
 
 export const paddingProps = ({

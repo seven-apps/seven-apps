@@ -22,7 +22,7 @@ export interface SizeProps extends CustonThemeProps {
   bottom?: number;
   left?: number;
   right?: number;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }
 
 export const sizeProps = ({
@@ -45,21 +45,21 @@ export const sizeProps = ({
   right,
   theme,
 }: SizeProps) => `
-  ${h ? `height: ${typeof h === "string" ? theme.sizes[h] || h : px(h)};` : ""}
+  ${h ? `height: ${typeof h === "string" ? theme?.sizes[h] || h : px(h)};` : ""}
   ${
     height
       ? `height: ${
           typeof height === "string"
-            ? theme.sizes[height] || height
+            ? theme?.sizes[height] || height
             : px(height)
         };`
       : ""
   }
-  ${w ? `width: ${typeof w === "string" ? theme.sizes[w] || w : px(w)};` : ""}
+  ${w ? `width: ${typeof w === "string" ? theme?.sizes[w] || w : px(w)};` : ""}
   ${
     width
       ? `width: ${
-          typeof width === "string" ? theme.sizes[width] || width : px(width)
+          typeof width === "string" ? theme?.sizes[width] || width : px(width)
         };`
       : ""
   }
