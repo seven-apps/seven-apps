@@ -26,7 +26,7 @@ const hp = (height: string | number, onlyNumber: boolean = false) => {
 
 const figmaWidth = 375;
 
-const px = (valuePx: number, onlyNumber: boolean) => {
+const px = (valuePx: number, onlyNumber: boolean = false) => {
   const widthPercent = (valuePx / figmaWidth) * 100;
   const result = PixelRatio.roundToNearestPixel(
     (width * parseFloat(String(widthPercent))) / 100
@@ -39,3 +39,5 @@ export const metrics = {
   hp,
   px,
 };
+
+export default px;

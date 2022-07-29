@@ -2,7 +2,7 @@
   "useNx": true,
   "useWorkspaces": true,
   "npmClient": "yarn",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "packages": [
     "packages/*"
   ]
