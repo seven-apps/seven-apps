@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import {
+  StyleSheet,
+  View,
+  PixelRatio,
+  Dimensions,
+  ViewProps,
+} from "react-native";
+
+const { width: screenWidth } = Dimensions.get("window");
 
 /* 
   SPACING
@@ -24,6 +32,15 @@ const margin = {
   mv: "marginVertical",
 };
 
+const border = {
+  bw: "borderWidth",
+  btw: "borderTopWidth",
+  bbw: "borderBottomWidth",
+  blw: "borderLeftWidth",
+  brw: "borderRightWidth",
+  br: "borderRadius",
+};
+
 /**
  * LAYOUT
  */
@@ -44,47 +61,78 @@ const colors = {
   bg: "backgroundColor",
 };
 
-/* 
-  FLEX
-*/
-/* 
-const flex = {
-  flex: "flex",
-  flexDix: "flexDir",
-  "flexGrow",
-  "flexWrap",
-  "justifyContent",
-  "alignItems",
-  "alignSelf",
-}; */
-
-const alias = {
+const aliasProps = {
   ...padding,
   ...margin,
   ...layout,
   ...colors,
+  ...border,
 };
 
 /* 
   SUBSTITUIR a prop pelo alias,
 */
 
+const figmaWidth = 390;
+
+const px = (valuePx: number) => {
+  const widthPercent = (valuePx / figmaWidth) * 100;
+  return PixelRatio.roundToNearestPixel(
+    (screenWidth * parseFloat(widthPercent)) / 100
+  );
+};
+
+// chave é o alias se nao existe e a do stylesheet
+const normalize = (key: string, value: number | string) => {
+  const include = [
+    Object.keys(padding),
+    Object.keys(margin),
+    Object.keys(border),
+    Object.keys(layout),
+    "topLeftRadius",
+    "topRightRadius",
+    "bottomRightRadius",
+    "bottomLeftRadius",
+    "top",
+    "bottom",
+    "left",
+    "right",
+  ];
+
+  if (include.find((i) => i === key) && !isNaN(Number(value)))
+    return px(Number(value));
+
+  return value;
+};
+/**
+ * Cria o style com stylesheet, pra isso verifica primeiro se a prop é um alias
+ * depois normaliza o valor se fizer parte do array que inclui essas props
+ */
 const createStyle = (props) => {
   let newProps = props;
   Object.keys(newProps).forEach((key) => {
-    if (alias[key]) {
+    if (aliasProps[key]) {
       Object.defineProperty(
-        props,
-        alias[key],
-        props && Object.getOwnPropertyDescriptor(props, key)
+        newProps,
+        aliasProps[key],
+        normalize(
+          aliasProps[key],
+          newProps && Object.getOwnPropertyDescriptor(newProps, key)
+        )
       );
       delete props[key];
+      return;
     }
+    Object.defineProperty(
+      newProps,
+      key,
+      normalize(key, newProps && Object.getOwnPropertyDescriptor(newProps, key))
+    );
   });
   return StyleSheet.create({ ...newProps, ...props });
 };
 
-export const Box = ({ children, ...props }) => (
+export const Box = ({ children, ...props }: ViewProps) => (
   <View style={createStyle(props)} {...props}>
     {children}
   </View>
