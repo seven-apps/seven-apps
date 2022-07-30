@@ -86,10 +86,10 @@ const px = (valuePx: number) => {
 // chave é o alias se nao existe e a do stylesheet
 const normalize = (key: string, value: number | string, sizes) => {
   const include = [
-    Object.keys(padding),
-    Object.keys(margin),
-    Object.keys(border),
-    Object.keys(layout),
+    ...Object.keys(padding),
+    ...Object.keys(margin),
+    ...Object.keys(border),
+    ...Object.keys(layout),
     "topLeftRadius",
     "topRightRadius",
     "bottomRightRadius",
@@ -100,16 +100,16 @@ const normalize = (key: string, value: number | string, sizes) => {
     "right",
   ];
 
-  // se tem no objeto size um alias pega o valor do alias se nao passar o valor
-  if (include.find((i) => i === key))
-    return px(Number(typeof value === "string" ? sizes[value] : value));
+  if (typeof value === "string" && !sizes[value]) return value;
+
+  if (!!include.find((i) => i === key))
+    // se tem no objeto size um alias pega o valor do alias se nao passar o valor
+    return px(Number(sizes[value] || value));
 
   return value;
 };
 
 export const getColor = (colors, key: string) => {
-  console.log("key ----> ", key);
-  console.log("colors ----> ", colors);
   if (!key) return null;
 
   if (String(key).includes(".")) {
@@ -142,7 +142,7 @@ const createStyle = (props, theme) => {
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
-      newProps[aliasProps[key]] = normalize(aliasProps[key], value, sizes);
+      newProps[aliasProps[key]] = normalize(key, value, sizes);
       delete newProps[key];
       return;
     }
@@ -160,10 +160,47 @@ const createStyle = (props, theme) => {
   return StyleSheet.create({ ...newProps, ...props });
 };
 
+const useComponentStyle = (component: string, customProps) => {
+  const { colorScheme, variant, ...props } = customProps;
+  const { theme } = useThemeStore();
+
+  const withColorScheme = (colorScheme) =>
+    colorScheme
+      ? {
+          color: colorScheme,
+          bg: colorScheme,
+          borderColor: colorScheme,
+        }
+      : {};
+
+  const componentStyles = (props, colorScheme, variant) => (componentTheme) => {
+    if (!componentTheme) return {};
+
+    const { baseStyle, variants } = componentTheme;
+    return {
+      ...baseStyle,
+      ...props,
+      ...withColorScheme(colorScheme),
+      ...(variants?.[variant] || {}),
+    };
+  };
+
+  const style = componentStyles(
+    props,
+    colorScheme,
+    variant
+  )(theme.components?.[component]);
+
+  console.log(`style component ${component} -> `, style);
+
+  return style;
+};
+
 export const Box = ({ children, ...props }) => {
-  const theme = useThemeStore();
+  const { theme } = useThemeStore();
+  const style = useComponentStyle("Box", props);
   return (
-    <View style={createStyle(props, theme)} {...props}>
+    <View style={createStyle({ ...style, ...props }, theme)} {...props}>
       {children}
     </View>
   );

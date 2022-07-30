@@ -11,7 +11,8 @@
     "publish:theme": "lerna publish --force-publish=@seven/theme --no-git-tag-version --no-push",
     "publish:ui": "lerna publish --force-publish=@seven/ui --no-git-tag-version --no-push",
     "publish:lib": "lerna publish --no-git-tag-version --no-push",
-    "build::publish": "yarn build:lib && yarn publish:lib"
+    "build::publish": "yarn build:lib && yarn publish:lib",
+    "bp:ui": "yarn build:ui && yarn publish:ui"
   },
   "devDependencies": {
     "lerna": "^5.2.0"
