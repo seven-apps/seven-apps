@@ -7,7 +7,7 @@ import {
   ViewProps,
 } from "react-native";
 
-import { theme } from ".";
+import { useThemeStore } from ".";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -84,9 +84,7 @@ const px = (valuePx: number) => {
 };
 
 // chave é o alias se nao existe e a do stylesheet
-const normalize = (key: string, value: number | string) => {
-  const { sizes } = theme;
-
+const normalize = (key: string, value: number | string, sizes) => {
   const include = [
     Object.keys(padding),
     Object.keys(margin),
@@ -109,9 +107,8 @@ const normalize = (key: string, value: number | string) => {
   return value;
 };
 
-export const getColor = (key: string) => {
+export const getColor = (colors, key: string) => {
   console.log("key ----> ", key);
-  const { colors } = theme;
   console.log("colors ----> ", colors);
   if (!key) return null;
 
@@ -130,40 +127,44 @@ export const getColor = (key: string) => {
  * Cria o style com stylesheet, pra isso verifica primeiro se a prop é um alias
  * depois normaliza o valor se fizer parte do array que inclui essas props
  */
-const createStyle = (props) => {
+const createStyle = (props, theme) => {
+  const { sizes, colors } = theme;
   let newProps = props;
   Object.keys(newProps).forEach((key) => {
     const value = newProps[key];
 
     // lida com o alias background para aplicar cor do theme ou a propria cor
     if (key === "bg") {
-      newProps[aliasProps[key]] = getColor(value);
+      newProps[aliasProps[key]] = getColor(colors, value);
       delete newProps[key];
       return;
     }
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
-      newProps[aliasProps[key]] = normalize(aliasProps[key], value);
+      newProps[aliasProps[key]] = normalize(aliasProps[key], value, sizes);
       delete newProps[key];
       return;
     }
 
     // lida com as key de cor
     if (key === "borderColor" || key === "color") {
-      newProps[key] = getColor(value);
+      newProps[key] = getColor(colors, value);
       return;
     }
 
     // lida com todas as outras keys que nao são de cor ou de alias
-    newProps[key] = normalize(key, value);
+    newProps[key] = normalize(key, value, sizes);
   });
 
   return StyleSheet.create({ ...newProps, ...props });
 };
 
-export const Box = ({ children, ...props }: ViewProps) => (
-  <View style={createStyle(props)} {...props}>
-    {children}
-  </View>
-);
+export const Box = ({ children, ...props }) => {
+  const theme = useThemeStore();
+  return (
+    <View style={createStyle(props, theme)} {...props}>
+      {children}
+    </View>
+  );
+};
