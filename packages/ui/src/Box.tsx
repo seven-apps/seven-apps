@@ -112,11 +112,12 @@ const normalize = (key: string, value: number | string) => {
 export const getColor = (key: string) => {
   console.log("key ----> ", key);
   const { colors } = theme;
+  console.log("colors ----> ", colors);
   if (!key) return null;
 
   if (String(key).includes(".")) {
     const splited = key.split(".");
-    return colors[splited[0]][splited[1]] || "#fff";
+    return colors?.[splited[0]]?.[splited[1]] || "#fff";
   }
 
   return (
@@ -136,30 +137,26 @@ const createStyle = (props) => {
 
     // lida com o alias background para aplicar cor do theme ou a propria cor
     if (key === "bg") {
-      Object.defineProperty(newProps, aliasProps[key], getColor(value));
-      delete props[key];
+      newProps[aliasProps[key]] = getColor(value);
+      delete newProps[key];
       return;
     }
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
-      Object.defineProperty(
-        newProps,
-        aliasProps[key],
-        normalize(aliasProps[key], value)
-      );
-      delete props[key];
+      newProps[aliasProps[key]] = normalize(aliasProps[key], value);
+      delete newProps[key];
       return;
     }
 
     // lida com as key de cor
     if (key === "borderColor" || key === "color") {
-      Object.defineProperty(newProps, key, getColor(value));
+      newProps[key] = getColor(value);
       return;
     }
 
     // lida com todas as outras keys que nao são de cor ou de alias
-    Object.defineProperty(newProps, key, normalize(key, value));
+    newProps[key] = normalize(key, value);
   });
 
   return StyleSheet.create({ ...newProps, ...props });

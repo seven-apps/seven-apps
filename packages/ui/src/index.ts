@@ -9,7 +9,12 @@ interface ThemeProps {
 }
 
 const store = createVanila<ThemeProps>((set) => ({
-  theme: {},
+  theme: {
+    colors: {},
+    sizes: {},
+    fontSizes: {},
+    components: {},
+  },
   setTheme: (theme) => set({ theme }),
 }));
 
