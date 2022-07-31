@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 import {
   aliasProps,
   border,
   layout,
   margin,
   padding,
-} from "../style-system/alias";
-import px from "../metrics";
-import { getColor } from "../style-system/colors";
+} from '../style-system/alias'
+import px from '../metrics'
+import { getColor } from '../style-system/colors'
 
 // chave é o alias se nao existe e a do stylesheet
 const normalize = (key: string, value: number | string, sizes) => {
@@ -16,58 +16,64 @@ const normalize = (key: string, value: number | string, sizes) => {
     ...Object.keys(margin),
     ...Object.keys(border),
     ...Object.keys(layout),
-    "topLeftRadius",
-    "topRightRadius",
-    "bottomRightRadius",
-    "bottomLeftRadius",
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ];
+    'topLeftRadius',
+    'topRightRadius',
+    'bottomRightRadius',
+    'bottomLeftRadius',
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]
 
-  if (typeof value === "string" && !sizes[value]) return value;
+  if (typeof value === 'string' && !sizes[value]) return value
 
   if (!!include.find((i) => i === key))
     // se tem no objeto size um alias pega o valor do alias se nao passar o valor
-    return px(Number(sizes[value] || value));
+    return px(Number(sizes[value] || value))
 
-  return value;
-};
+  return value
+}
 
 /**
  * Cria o style com stylesheet, pra isso verifica primeiro se a prop é um alias
  * depois normaliza o valor se fizer parte do array que inclui essas props
  */
 export const createStyle = (props, theme) => {
-  const { sizes, colors } = theme;
-  let newProps = props;
+  const { sizes, colors, fontSizes } = theme
+  let newProps = props
   Object.keys(newProps).forEach((key) => {
-    const value = newProps[key];
+    const value = newProps[key]
 
     // lida com o alias background para aplicar cor do theme ou a propria cor
-    if (key === "bg") {
-      newProps[aliasProps[key]] = getColor(colors, value);
-      delete newProps[key];
-      return;
+    if (key === 'bg') {
+      newProps[aliasProps[key]] = getColor(colors, value)
+      delete newProps[key]
+      return
     }
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
-      newProps[aliasProps[key]] = normalize(key, value, sizes);
-      delete newProps[key];
-      return;
+      newProps[aliasProps[key]] = normalize(key, value, sizes)
+      delete newProps[key]
+      return
     }
 
     // lida com as key de cor
-    if (key === "borderColor" || key === "color") {
-      newProps[key] = getColor(colors, value);
-      return;
+    if (key === 'borderColor' || key === 'color') {
+      newProps[key] = getColor(colors, value)
+      return
+    }
+
+    if (key === 'fontSize') {
+      newProps[key] = normalize(key, value, fontSizes)
+      delete newProps[key]
+      return
     }
 
     // lida com todas as outras keys que nao são de cor ou de alias
-    newProps[key] = normalize(key, value, sizes);
-  });
+    newProps[key] = normalize(key, value, sizes)
+  })
 
-  return StyleSheet.create({ ...newProps, ...props });
-};
+  return StyleSheet.create({ ...newProps, ...props })
+}
