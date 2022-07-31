@@ -1,3 +1,4 @@
+import { createStyle } from '../theme'
 import { useThemeStore } from './useTheme'
 
 /**
@@ -20,14 +21,14 @@ export const useComponentStyle = (component: string, customProps) => {
       : {}
 
   const componentStyles = (props, colorScheme, variant) => (componentTheme) => {
-    if (!componentTheme) return {}
+    console.log('componentTheme -> ', componentTheme)
 
-    const { baseStyle, variants } = componentTheme
+    const { baseStyle, variants } = componentTheme || {}
     return {
       ...(baseStyle || {}),
-      ...props,
       ...withColorScheme(colorScheme),
       ...(variants?.[variant] || {}),
+      ...props,
     }
   }
 
@@ -37,5 +38,6 @@ export const useComponentStyle = (component: string, customProps) => {
     variant
   )(theme.components?.[component])
 
-  return style
+  // retorna diretamente o createStyle aqui
+  return createStyle(style, theme)
 }
