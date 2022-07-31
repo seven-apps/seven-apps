@@ -17,7 +17,7 @@ export default {
       sourcemap: false,
     },
   ],
-  external: ['react-native'],
+  external: ['react-native', 'zustand'],
   plugins: [
     nodeResolve(),
     json(),
