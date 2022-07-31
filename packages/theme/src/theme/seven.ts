@@ -1,6 +1,6 @@
-import sizes from "./foundation/sizes";
-import colors from "./foundation/colors";
-import fontSizes from "./foundation/fontSizes";
+import sizes from "../foundation/sizes";
+import colors from "../foundation/colors";
+import fontSizes from "../foundation/fontSizes";
 
 export type SevenThemeProps = typeof sevenTheme;
 
