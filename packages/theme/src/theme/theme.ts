@@ -24,6 +24,7 @@ const normalize = (key: string, value: number | string, sizes) => {
     'bottom',
     'left',
     'right',
+    'fontSize',
   ]
 
   if (typeof value === 'string' && !sizes[value]) return value
@@ -39,41 +40,149 @@ const normalize = (key: string, value: number | string, sizes) => {
  * Cria o style com stylesheet, pra isso verifica primeiro se a prop é um alias
  * depois normaliza o valor se fizer parte do array que inclui essas props
  */
-export const createStyle = (props, theme) => {
+export const createStyle = (style, theme) => {
   const { sizes, colors, fontSizes } = theme
-  let newProps = props
-  Object.keys(newProps).forEach((key) => {
-    const value = newProps[key]
+  let newStyle = style
+
+  Object.keys(newStyle).forEach((key) => {
+    const value = newStyle[key]
 
     // lida com o alias background para aplicar cor do theme ou a propria cor
     if (key === 'bg') {
-      newProps[aliasProps[key]] = getColor(colors, value)
-      delete newProps[key]
+      newStyle[aliasProps[key]] = getColor(colors, value)
+      delete newStyle[key]
       return
     }
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
-      newProps[aliasProps[key]] = normalize(key, value, sizes)
-      delete newProps[key]
+      newStyle[aliasProps[key]] = normalize(key, value, sizes)
+      delete newStyle[key]
       return
     }
 
     // lida com as key de cor
     if (key === 'borderColor' || key === 'color') {
-      newProps[key] = getColor(colors, value)
+      newStyle[key] = getColor(colors, value)
       return
     }
 
     if (key === 'fontSize') {
-      newProps[key] = normalize(key, value, fontSizes)
-      delete newProps[key]
+      newStyle[key] = normalize(key, value, fontSizes)
       return
     }
 
     // lida com todas as outras keys que nao são de cor ou de alias
-    newProps[key] = normalize(key, value, sizes)
+    newStyle[key] = normalize(key, value, sizes)
   })
 
-  return StyleSheet.create({ ...newProps, ...props })
+  return StyleSheet.create(newStyle)
 }
+
+const keyThemes = [
+  'display',
+  'width',
+  'height',
+  'start',
+  'end',
+  'top',
+  'left',
+  'right',
+  'bottom',
+  'minWidth',
+  'maxWidth',
+  'minHeight',
+  'maxHeight',
+  'margin',
+  'marginVertical',
+  'marginHorizontal',
+  'marginTop',
+  'marginBottom',
+  'marginLeft',
+  'marginRight',
+  'marginStart',
+  'marginEnd',
+  'padding',
+  'paddingVertical',
+  'paddingHorizontal',
+  'paddingTop',
+  'paddingBottom',
+  'paddingLeft',
+  'paddingRight',
+  'paddingStart',
+  'paddingEnd',
+  'borderWidth',
+  'borderTopWidth',
+  'borderStartWidth',
+  'borderEndWidth',
+  'borderRightWidth',
+  'borderBottomWidth',
+  'borderLeftWidth',
+  'position',
+  'flexDirection',
+  'flexWrap',
+  'justifyContent',
+  'alignItems',
+  'alignSelf',
+  'alignContent',
+  'overflow',
+  'flex',
+  'flexGrow',
+  'flexShrink',
+  'flexBasis',
+  'aspectRatio',
+  'zIndex',
+  'direction',
+  'shadowColor',
+  'shadowOffset',
+  'shadowOpacity',
+  'shadowRadius',
+  'transform',
+  'transformMatrix',
+  'decomposedMatrix',
+  'scaleX',
+  'scaleY',
+  'rotation',
+  'translateX',
+  'translateY',
+  'backfaceVisibility',
+  'backgroundColor',
+  'borderColor',
+  'borderTopColor',
+  'borderRightColor',
+  'borderBottomColor',
+  'borderLeftColor',
+  'borderStartColor',
+  'borderEndColor',
+  'borderRadius',
+  'borderTopLeftRadius',
+  'borderTopRightRadius',
+  'borderTopStartRadius',
+  'borderTopEndRadius',
+  'borderBottomLeftRadius',
+  'borderBottomRightRadius',
+  'borderBottomStartRadius',
+  'borderBottomEndRadius',
+  'borderStyle',
+  'opacity',
+  'elevation',
+  'color',
+  'fontFamily',
+  'fontSize',
+  'fontStyle',
+  'fontWeight',
+  'fontVariant',
+  'textShadowOffset',
+  'textShadowRadius',
+  'textShadowColor',
+  'letterSpacing',
+  'lineHeight',
+  'textAlign',
+  'textAlignVertical',
+  'includeFontPadding',
+  'textDecorationLine',
+  'textDecorationStyle',
+  'textDecorationColor',
+  'textTransform',
+  'writingDirection',
+]

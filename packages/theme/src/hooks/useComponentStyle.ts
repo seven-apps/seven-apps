@@ -16,9 +16,11 @@ const modeVariant = (variant, props, theme) => {
  * Cria o style do componente de acordo com algumas caracteristicas com
  *  variants e colorScheme
  */
-export const useComponentStyle = (component: string, customProps, id) => {
+export const useComponentStyle = (customProps, component: string) => {
   const { variant, ...props } = customProps
   const { theme } = useThemeStore()
+
+  console.log('\n\n\n -----------------', theme)
 
   const componentStyles = (componentTheme) => {
     if (!componentTheme) return props

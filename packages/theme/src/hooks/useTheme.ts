@@ -19,6 +19,8 @@ const store = createVanila<ThemeProps>((set) => ({
 
 export const useThemeStore = create(store)
 
+export const useTheme = useThemeStore
+
 export const configTheme = (custonTheme) => {
   store.setState((state) => ({ ...state, theme: custonTheme }))
 }
