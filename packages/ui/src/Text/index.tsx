@@ -9,8 +9,8 @@ import {
 } from '@sevenapps/theme'
 
 type TextProps = {
-  fontSize: FontTypes | number
-  color: ColorTypes | string
+  fontSize?: FontTypes | number
+  color?: ColorTypes | string
 } & TextInputProps &
   PaddingProps &
   MarginProps
