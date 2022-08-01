@@ -1,9 +1,22 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, ViewProps } from 'react-native'
 
-import { useComponentStyle } from '@sevenapps/theme'
+import {
+  useComponentStyle,
+  SizeProps,
+  MarginProps,
+  PaddingProps,
+  ColorTypes,
+} from '@sevenapps/theme'
 
-export const Box = ({ children, row, ...props }) => {
+interface BoxInterface extends ViewProps {
+  row?: boolean
+  borderColor?: ColorTypes | string
+}
+
+type BoxProps = BoxInterface & SizeProps & MarginProps & PaddingProps
+
+export const Box = ({ children, row, ...props }: BoxProps) => {
   let style = useComponentStyle(props, 'Box')
 
   delete props.borderColor
