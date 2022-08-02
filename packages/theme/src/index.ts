@@ -7,3 +7,6 @@ export * from './style-system/alias'
 export * from './foundation/fontSizes'
 export * from './foundation/colors'
 export * from './foundation/sizes'
+
+export * from './style-system/fonts'
+export * from './style-system/flex'

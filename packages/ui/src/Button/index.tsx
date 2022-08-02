@@ -21,6 +21,8 @@ import { Box } from '../Box'
 import pick from 'lodash.pick'
 
 type ButtonProps = {
+  center?: boolean
+  column?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   leftIconSpacing?: SizesTypes | number
@@ -36,12 +38,14 @@ export const Button = ({
   onPress,
   leftIcon,
   rightIcon,
+  center,
+  column,
   leftIconSpacing = 0,
   rightIconSpacing = 0,
   ...props
 }: ButtonProps) => {
   const config = useComponentConfig('Button')
-  const style = useComponentStyle(props, 'Button')
+  let style = useComponentStyle(props, 'Button')
 
   const styleFont = pick(style, [
     'fontSize',
@@ -50,9 +54,17 @@ export const Button = ({
     'fontWeight',
   ])
 
+  if (center || config?.center) {
+    style = {
+      ...style,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+  }
+
   return (
     <TouchableOpacity {...config} style={style} onPress={onPress}>
-      <Box row>
+      <Box row={!column} alignItems="center">
         {leftIcon && <Box mr={leftIconSpacing || 'md'}>{leftIcon}</Box>}
         <Text {...styleFont}>{children}</Text>
         {rightIcon && <Box ml={rightIconSpacing || 'md'}>{rightIcon}</Box>}

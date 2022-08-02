@@ -1068,10 +1068,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@sevenapps/theme@^0.1.61":
-  version "0.1.61"
-  resolved "https://registry.yarnpkg.com/@sevenapps/theme/-/theme-0.1.61.tgz#7316e817b8345e0f8e15ed9f1e6ce453c4bf78bf"
-  integrity sha512-ROgFF+wjWWFBiC4sCnT7jKYuBP9cfgxCXdZuhZLhlEhrO/9q+VghYM8PRdXMVVH2VhYswl4wxVyk657rfN2Eqg==
+"@sevenapps/theme@^0.1.64":
+  version "0.1.64"
+  resolved "https://registry.yarnpkg.com/@sevenapps/theme/-/theme-0.1.64.tgz#97f23a36f0505beb7b8894fe2dc29ac8c3c6be00"
+  integrity sha512-+lNXpFLdSk1g/TJ2Lj18/hmt+D0EsESoweEYjdb7LWKlKj2GFvXmjqYfpJWOSxzrrUJqI/8c2NEFp9fl70BdGQ==
   dependencies:
     lodash.pick "^4.4.0"
     typescript "^4.7.4"
