@@ -2,13 +2,11 @@ import React from 'react'
 import {
   TouchableOpacity,
   TouchableOpacityProps,
-  TextProps,
+  ActivityIndicator,
 } from 'react-native'
 import {
   useComponentStyle,
   useComponentConfig,
-  FontTypes,
-  ColorTypes,
   SizesTypes,
   PaddingProps,
   MarginProps,
@@ -21,6 +19,10 @@ import { Box } from '../Box'
 import pick from 'lodash.pick'
 
 type ButtonProps = {
+  loading?: boolean
+  loadingColor?: string
+  colorScheme?: string
+  variant?: string
   center?: boolean
   column?: boolean
   leftIcon?: React.ReactNode
@@ -33,6 +35,8 @@ type ButtonProps = {
   PaddingProps
 
 export const Button = ({
+  loading,
+  loadingColor,
   children,
   activeOpacity,
   onPress,
@@ -64,11 +68,21 @@ export const Button = ({
 
   return (
     <TouchableOpacity {...config} style={style} onPress={onPress}>
-      <Box row={!column} alignItems="center">
-        {leftIcon && <Box mr={leftIconSpacing || 'md'}>{leftIcon}</Box>}
-        <Text {...styleFont}>{children}</Text>
-        {rightIcon && <Box ml={rightIconSpacing || 'md'}>{rightIcon}</Box>}
-      </Box>
+      {loading ? (
+        <ActivityIndicator color={loadingColor || 'white'} />
+      ) : (
+        <Box row={!column} alignItems="center">
+          {leftIcon && <Box mr={leftIconSpacing || 'md'}>{leftIcon}</Box>}
+
+          {typeof children === 'string' ? (
+            <Text {...styleFont}>{children}</Text>
+          ) : (
+            children
+          )}
+
+          {rightIcon && <Box ml={rightIconSpacing || 'md'}>{rightIcon}</Box>}
+        </Box>
+      )}
     </TouchableOpacity>
   )
 }

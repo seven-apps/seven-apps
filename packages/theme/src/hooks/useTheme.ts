@@ -24,3 +24,5 @@ export const useTheme = useThemeStore
 export const configTheme = (custonTheme) => {
   store.setState((state) => ({ ...state, theme: custonTheme }))
 }
+
+export const getTheme = () => store.getState()?.theme

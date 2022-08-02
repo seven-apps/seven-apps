@@ -11,6 +11,8 @@ import {
 } from '@sevenapps/theme'
 
 interface BoxInterface extends ViewProps {
+  colorScheme?: string
+  variant?: string
   center?: boolean
   row?: boolean
   borderColor?: ColorTypes | string
