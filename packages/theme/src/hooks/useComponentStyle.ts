@@ -18,9 +18,31 @@ export const useComponentStyle = (
   const { variant, ...props } = customProps
   const { theme } = useThemeStore()
 
-  // verificar 2 renders
+  if (component) {
+    // pq aqui funciona aqui nao funciona
+    const styleTheme = componentStyles({
+      variant,
+      props,
+      theme,
+      componentTheme: theme.components?.[component],
+    })
 
-  // const componentStyle = pick(props, keysStyle) a
+    // const componentStyleWithTheme = pick(styleTheme, keysStyle)
+    const othersComponetStylesWithTheme = pickNotBy(styleTheme, keysStyle)
+
+    const styleWithTheme = createStyle(styleTheme, theme)
+    const othersStylesWithTheme = getPropsForOtherStyle(
+      othersComponetStylesWithTheme,
+      arraykeys || [],
+      getStyle(theme)
+    )
+
+    return Object.assign([styleWithTheme, othersStylesWithTheme], {
+      style: styleWithTheme,
+      othersStyles: othersStylesWithTheme,
+    })
+  }
+
   const othersComponetStyles = pickNotBy(props, keysStyle)
 
   const style = createStyle(props, theme)
@@ -30,30 +52,5 @@ export const useComponentStyle = (
     getStyle(theme)
   )
 
-  if (!component)
-    return Object.assign([style, othersStyles], { style, othersStyles })
-
-  // pq aqui funciona aqui nao funciona
-
-  const styleTheme = componentStyles({
-    variant,
-    props,
-    theme,
-    componentTheme: theme.components?.[component],
-  })
-
-  // const componentStyleWithTheme = pick(styleTheme, keysStyle)
-  const othersComponetStylesWithTheme = pickNotBy(styleTheme, keysStyle)
-
-  const styleWithTheme = createStyle(styleTheme, theme)
-  const othersStylesWithTheme = getPropsForOtherStyle(
-    othersComponetStylesWithTheme,
-    arraykeys || [],
-    getStyle(theme)
-  )
-
-  return Object.assign([styleWithTheme, othersStylesWithTheme], {
-    style: styleWithTheme,
-    othersStyles: othersStylesWithTheme,
-  })
+  return Object.assign([style, othersStyles], { style, othersStyles })
 }

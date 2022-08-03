@@ -45,22 +45,21 @@ const normalize = (key: string, value: number | string, sizes: SizesTypes) => {
  */
 export const createStyle = (style, theme) => {
   const { sizes, colors, fontSizes } = theme
-  let newStyle = style
+  //const prevStyle = style
+  let newStyle = { ...style }
 
   Object.keys(style).forEach((key) => {
-    const value = newStyle[key]
+    const value = style[key]
 
     // lida com o alias background para aplicar cor do theme ou a propria cor
     if (key === 'bg') {
       newStyle[aliasProps[key]] = getColor(colors, value)
-      delete newStyle[key]
       return
     }
 
     // lida com o alias que não são de cor
     if (aliasProps[key]) {
       newStyle[aliasProps[key]] = normalize(key, value, sizes)
-      delete newStyle[key]
       return
     }
 
@@ -78,11 +77,6 @@ export const createStyle = (style, theme) => {
     // lida com todas as outras keys que nao são de cor ou de alias
     newStyle[key] = normalize(key, value, sizes)
   })
-
-  console.log(
-    '\n\n 😎 😎 😎 createStyle -->',
-    JSON.stringify(newStyle, null, 3)
-  )
 
   return StyleSheet.create(pick(newStyle, keysStyle))
 }
