@@ -47,7 +47,7 @@ export const createStyle = (style, theme) => {
   const { sizes, colors, fontSizes } = theme
   let newStyle = style
 
-  Object.keys(newStyle).forEach((key) => {
+  Object.keys(style).forEach((key) => {
     const value = newStyle[key]
 
     // lida com o alias background para aplicar cor do theme ou a propria cor

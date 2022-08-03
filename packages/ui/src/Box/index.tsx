@@ -25,7 +25,7 @@ type BoxProps = BoxInterface &
   FlexProps
 
 export const Box = ({ children, row, center, ...props }: BoxProps) => {
-  let style = useComponentStyle(props, 'Box')
+  let [style] = useComponentStyle(props, 'Box')
 
   delete props.borderColor
 

@@ -49,7 +49,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const config = useComponentConfig('Button')
-  let style = useComponentStyle(props, 'Button')
+  let [style] = useComponentStyle(props, 'Button')
 
   const styleFont = pick(style, [
     'fontSize',

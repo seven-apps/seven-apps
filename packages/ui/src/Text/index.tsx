@@ -18,7 +18,7 @@ type TextProps = {
   MarginProps
 
 export const Text = ({ children, ...props }: TextProps) => {
-  const style = useComponentStyle(props, 'Text')
+  const [style] = useComponentStyle(props, 'Text')
 
   return (
     <TextRN style={style} {...props}>
