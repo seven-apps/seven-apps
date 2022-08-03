@@ -1,42 +1,55 @@
-import { createStyle } from '../theme'
+import { componentStyles, createStyle } from '../theme'
 import { useThemeStore } from './useTheme'
 
-const isObject = (obj) => {
-  return Object.prototype.toString.call(obj) === '[object Object]'
-}
+import { keysStyle } from '../style-system/keysStyle'
+import pick from 'lodash.pick'
+import { getPropsForOtherStyle, pickNotBy } from '../utils'
 
-const modeVariant = (variant, props, theme) => {
-  if (typeof variant !== 'function' && isObject(variant)) return variant
-
-  const v = variant(props, theme)
-
-  return v
-}
+const getStyle = (theme) => (styles) => createStyle(styles, theme)
 /**
  * Cria o style do componente de acordo com algumas caracteristicas com
  *  variants e colorScheme
  */
-export const useComponentStyle = (customProps, component?: string) => {
+export const useComponentStyle = (
+  customProps,
+  component?: string,
+  arraykeys?: string[]
+) => {
   const { variant, ...props } = customProps
   const { theme } = useThemeStore()
 
-  if (!component) return createStyle(props, theme)
+  // const componentStyle = pick(props, keysStyle) a
+  const othersComponetStyles = pickNotBy(props, keysStyle)
 
-  const componentStyles = (componentTheme) => {
-    const { baseStyle, variants } = componentTheme || {}
+  const style = createStyle(props, theme)
+  const othersStyles = getPropsForOtherStyle(
+    othersComponetStyles,
+    arraykeys || [],
+    getStyle(theme)
+  )
 
-    const styleVariant = variants?.[variant]
-      ? modeVariant(variants?.[variant], props, theme)
-      : {}
+  if (!component)
+    return Object.assign([style, othersStyles], { style, othersStyles })
 
-    return {
-      ...(baseStyle || {}),
-      ...styleVariant,
-      ...props,
-    }
-  }
+  const styleTheme = componentStyles({
+    variant,
+    props,
+    theme,
+    componentTheme: theme.components?.[component],
+  })
 
-  const style = componentStyles(theme.components?.[component])
+  // const componentStyleWithTheme = pick(styleTheme, keysStyle)
+  const othersComponetStylesWithTheme = pickNotBy(styleTheme, keysStyle)
 
-  return createStyle(style, theme)
+  const styleWithTheme = createStyle(styleTheme, theme)
+  const othersStylesWithTheme = getPropsForOtherStyle(
+    othersComponetStylesWithTheme,
+    arraykeys || [],
+    getStyle(theme)
+  )
+
+  return Object.assign([styleWithTheme, othersStylesWithTheme], {
+    style: styleWithTheme,
+    othersStyles: othersStylesWithTheme,
+  })
 }

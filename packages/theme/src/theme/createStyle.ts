@@ -8,11 +8,12 @@ import {
 } from '../style-system/alias'
 import px from '../metrics'
 import { getColor } from '../style-system/colors'
-import { keysStyle } from '../style-system/keysStyle'
+import { SizesTypes } from '../foundation/sizes'
+import { keysColor, keysStyle } from '../style-system/keysStyle'
 import pick from 'lodash.pick'
 
 // chave é o alias se nao existe e a do stylesheet
-const normalize = (key: string, value: number | string, sizes) => {
+const normalize = (key: string, value: number | string, sizes: SizesTypes) => {
   const include = [
     ...Object.keys(padding),
     ...Object.keys(margin),
@@ -64,7 +65,7 @@ export const createStyle = (style, theme) => {
     }
 
     // lida com as key de cor
-    if (key === 'borderColor' || key === 'color') {
+    if (!!keysColor.find((keyColor) => keyColor === key)) {
       newStyle[key] = getColor(colors, value)
       return
     }

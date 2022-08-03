@@ -105,3 +105,18 @@ export const keysStyle = [
   'textTransform',
   'writingDirection',
 ]
+
+export const keysColor = [
+  'textDecorationColor',
+  'textShadowColor',
+  'color',
+  'borderColor',
+  'borderTopColor',
+  'borderRightColor',
+  'borderBottomColor',
+  'borderLeftColor',
+  'borderStartColor',
+  'borderEndColor',
+  'backgroundColor',
+  'shadowColor',
+]

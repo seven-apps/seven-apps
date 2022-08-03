@@ -1,6 +1,6 @@
 {
   "name": "@sevenapps/theme",
-  "version": "0.0.10",
+  "version": "0.1.76",
   "description": "theme and style system ",
   "author": "sevenapps",
   "main": "dist/index.js",
@@ -22,6 +22,8 @@
   },
   "scripts": {
     "tsc": "tsc",
+    "watch": "rollup -c -w",
+    "pack": "npm pack",
     "build:lib": "rm -rf ./dist && rollup -c",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
