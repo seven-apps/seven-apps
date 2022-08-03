@@ -1,6 +1,6 @@
 {
   "name": "@sevenapps/theme",
-  "version": "0.1.77",
+  "version": "0.1.79",
   "description": "theme and style system ",
   "author": "sevenapps",
   "main": "dist/index.js",

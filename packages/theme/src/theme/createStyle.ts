@@ -79,5 +79,10 @@ export const createStyle = (style, theme) => {
     newStyle[key] = normalize(key, value, sizes)
   })
 
+  console.log(
+    '\n\n 😎 😎 😎 createStyle -->',
+    JSON.stringify(newStyle, null, 3)
+  )
+
   return StyleSheet.create(pick(newStyle, keysStyle))
 }

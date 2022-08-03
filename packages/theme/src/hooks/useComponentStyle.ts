@@ -18,6 +18,8 @@ export const useComponentStyle = (
   const { variant, ...props } = customProps
   const { theme } = useThemeStore()
 
+  // verificar 2 renders
+
   // const componentStyle = pick(props, keysStyle) a
   const othersComponetStyles = pickNotBy(props, keysStyle)
 
@@ -30,6 +32,8 @@ export const useComponentStyle = (
 
   if (!component)
     return Object.assign([style, othersStyles], { style, othersStyles })
+
+  // pq aqui funciona aqui nao funciona
 
   const styleTheme = componentStyles({
     variant,
