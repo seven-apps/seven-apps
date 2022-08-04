@@ -17,12 +17,13 @@ export const useInputStyle = (props, focus, error) => {
   let inputStyle = style
 
   if (error) {
-    delete errorStyle.padding
-    delete errorStyle.paddingLeft
+    let errStyle = { ...errorStyle }
+    delete errStyle.padding
+    delete errStyle.paddingLeft
 
     inputStyle = {
       ...inputStyle,
-      ...errorStyle,
+      ...errStyle,
       ...(inputStyle?.padding ? { padding: inputStyle?.padding } : {}),
       ...(inputStyle?.paddingLeft
         ? { paddingLeft: inputStyle?.paddingLeft }

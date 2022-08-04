@@ -1,9 +1,32 @@
 import React, { useState } from 'react'
-import { TextInput } from 'react-native'
-import pick from 'lodash.pick'
+import { TextInput, TextInputProps, TextProps } from 'react-native'
 import { useInputStyle } from './hook'
 import { Text } from '../Text'
-import { Controller } from 'react-hook-form'
+import { Controller, Control } from 'react-hook-form'
+import { Masks, useMaskedInputProps } from 'react-native-mask-input'
+
+import {
+  PaddingProps,
+  MarginProps,
+  SizeProps,
+  BorderProps,
+} from '@sevenapps/theme'
+
+type AnyObject = {
+  [key: string]: any
+}
+
+type InputComponentProps = {
+  label?: string
+  error?: string
+  mask?: keyof typeof Masks
+} & TextInputProps &
+  TextProps &
+  PaddingProps &
+  MarginProps &
+  SizeProps &
+  BorderProps &
+  AnyObject
 
 const InputComponent = ({
   value,
@@ -12,14 +35,24 @@ const InputComponent = ({
   errorColor,
   error,
   label,
+  mask,
   ...props
-}) => {
+}: InputComponentProps) => {
   const [focus, setFocus] = useState(false)
   const { labelStyle, errorStyle, inputStyle } = useInputStyle(
     props,
     focus,
     !!error
   )
+  const maskedInputProps = useMaskedInputProps({
+    value: value || '',
+    onChangeText: onChange,
+    ...(mask
+      ? {
+          mask: Masks[mask],
+        }
+      : {}),
+  })
 
   const spacingLabel = pick(inputStyle, label ? ['marginTop'] : [])
   if (!!label) delete inputStyle.marginTop
@@ -29,8 +62,11 @@ const InputComponent = ({
       {label && <Text {...{ ...labelStyle, ...spacingLabel }}>{label}</Text>}
       <TextInput
         {...props}
-        value={value}
-        onChangeText={onChange}
+        {...maskedInputProps}
+        placeholder={props.placeholder}
+        placeholderTextColor={
+          (error && errorStyle.color) || props.placeholderTextColor
+        }
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         style={inputStyle}
@@ -40,11 +76,16 @@ const InputComponent = ({
   )
 }
 
-export const Input = ({ name, control, ...props }) => {
-  if (!!control) {
+type InputProps = {
+  name?: string
+  control?: Control
+} & InputComponentProps
+
+export const InputT = ({ name, control, ...props }: InputProps) => {
+  if (!!control || !!name) {
     return (
       <Controller
-        name={name}
+        name={name || ''}
         control={control}
         defaultValue={props.defaultValue}
         render={({ field, fieldState }) => (
