@@ -11,6 +11,7 @@ import {
   PaddingProps,
   MarginProps,
   BorderProps,
+  SizeProps,
 } from '@sevenapps/theme'
 
 import { Text } from '../Text'
@@ -32,7 +33,8 @@ type ButtonProps = {
 } & TouchableOpacityProps &
   MarginProps &
   BorderProps &
-  PaddingProps
+  PaddingProps &
+  SizeProps
 
 export const Button = ({
   loading,

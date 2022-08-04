@@ -20,6 +20,7 @@ export const useInputStyle = (props, focus, error) => {
     let errStyle = { ...errorStyle }
     delete errStyle.padding
     delete errStyle.paddingLeft
+    delete errStyle.fontSize
 
     inputStyle = {
       ...inputStyle,

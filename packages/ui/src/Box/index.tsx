@@ -8,6 +8,8 @@ import {
   PaddingProps,
   ColorTypes,
   FlexProps,
+  BorderProps,
+  ColorProps,
 } from '@sevenapps/theme'
 
 interface BoxInterface extends ViewProps {
@@ -22,7 +24,9 @@ type BoxProps = BoxInterface &
   SizeProps &
   MarginProps &
   PaddingProps &
-  FlexProps
+  FlexProps &
+  BorderProps &
+  ColorProps
 
 export const Box = ({ children, row, center, ...props }: BoxProps) => {
   let [style] = useComponentStyle(props, 'Box')

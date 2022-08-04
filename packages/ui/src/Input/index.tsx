@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextInput, TextInputProps, TextProps } from 'react-native'
 import { useInputStyle } from './hook'
 import { Text } from '../Text'
+import pick from 'lodash.pick'
 import { Controller, Control } from 'react-hook-form'
 import { Masks, useMaskedInputProps } from 'react-native-mask-input'
 
@@ -81,7 +82,7 @@ type InputProps = {
   control?: Control
 } & InputComponentProps
 
-export const InputT = ({ name, control, ...props }: InputProps) => {
+export const Input = ({ name, control, ...props }: InputProps) => {
   if (!!control || !!name) {
     return (
       <Controller
