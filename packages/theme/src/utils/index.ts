@@ -18,6 +18,27 @@ export const getPropStyle = (key: string, props: any) => {
   return newPropsStyle
 }
 
+export const setPropStyle = (props) => {
+  let newPropsStyle = {}
+  Object.keys(props).forEach((key) => {
+    if (!isObject(props[key])) {
+      newPropsStyle = {
+        ...newPropsStyle,
+        [key]: props[key],
+      }
+      return
+    }
+    Object.keys(props[key]).forEach((keyProps) => {
+      const newKey = `${key}${keyProps[0].toUpperCase()}${keyProps.slice(1)}`
+      newPropsStyle = {
+        ...newPropsStyle,
+        [newKey]: props[key][keyProps],
+      }
+    })
+  })
+  return newPropsStyle
+}
+
 export const pickNotBy = (obj: any, arr: string[]) => {
   let newObject = {}
   Object.keys(obj).forEach((key) => {

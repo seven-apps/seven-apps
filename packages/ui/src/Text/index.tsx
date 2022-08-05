@@ -10,7 +10,7 @@ import {
 
 type TextCustomProps = {
   colorScheme?: boolean
-  variant?: boolean
+  variant?: string
   fontWeight?:
     | 'normal'
     | 'bold'

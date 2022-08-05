@@ -1,4 +1,4 @@
-import { isObject } from '../utils'
+import { isObject, setPropStyle } from '../utils'
 
 const modeVariant = (variant, props, theme) => {
   if (typeof variant !== 'function' && isObject(variant)) return variant
@@ -16,8 +16,8 @@ export const componentStyles = ({ variant, props, theme, componentTheme }) => {
     : {}
 
   return {
-    ...(baseStyle || {}),
-    ...styleVariant,
+    ...setPropStyle(baseStyle || {}),
+    ...setPropStyle(styleVariant),
     ...props,
   }
 }
