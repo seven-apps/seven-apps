@@ -1,20 +1,60 @@
 import React from 'react'
-import { Control, UseFormHandleSubmit, FieldValues } from 'react-hook-form'
+import {
+  Control,
+  UseFormHandleSubmit,
+  FieldValues,
+  useForm,
+} from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 type FormProps = {
-  control: Control
-  handleSubmit: UseFormHandleSubmit<FieldValues>
-  children: React.ReactElement
+  onSubmit: (data: any) => void
+  children: JSX.Element[]
+  validation?: yup.AnyObjectSchema
 }
 
-export const Form = ({ children, control, handleSubmit }: FormProps) => {
+export const Form = ({ children, validation, onSubmit }: FormProps) => {
+  const { handleSubmit, control } = useForm(
+    validation ? { resolver: yupResolver(validation) } : {}
+  )
+
+  return (
+    <>
+      {React.Children.map(children, (child: React.ReactElement) => {
+        const props =
+          child.props?.type === 'submit'
+            ? {
+                control,
+                onPress: handleSubmit(onSubmit),
+              }
+            : { control }
+
+        return React.cloneElement(child, props)
+      })}
+    </>
+  )
+}
+
+type FormControlProps = {
+  handleSubmit: UseFormHandleSubmit<FieldValues>
+  children: JSX.Element[]
+  control: Control
+}
+
+export const FormControl = ({
+  children,
+  control,
+  handleSubmit,
+}: FormControlProps) => {
   return React.Children.map(children, (child: React.ReactElement) => {
-    const props = child.props?.onSubmit
-      ? {
-          control,
-          onPress: handleSubmit(child.props.onSubmit),
-        }
-      : { control }
+    const props =
+      child.props?.type === 'submit'
+        ? {
+            control,
+            onPress: handleSubmit,
+          }
+        : { control }
 
     return React.cloneElement(child, props)
   })

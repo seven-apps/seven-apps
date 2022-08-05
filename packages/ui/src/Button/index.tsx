@@ -20,7 +20,7 @@ import { Box } from '../Box'
 import pick from 'lodash.pick'
 
 type ButtonProps = {
-  onSubmit?: (data: any) => void
+  submit?: boolean // pode crescer e virar mais props com um type
   loading?: boolean
   loadingColor?: string
   colorScheme?: string
