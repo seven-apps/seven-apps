@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text as TextRN, TextInputProps } from 'react-native'
+import { Text as TextRN, TextProps } from 'react-native'
 import {
   useComponentStyle,
   FontTypes,
@@ -8,16 +8,16 @@ import {
   MarginProps,
 } from '@sevenapps/theme'
 
-type TextProps = {
+type TextCustomProps = {
   colorScheme?: boolean
   variant?: boolean
   fontSize?: FontTypes | number
   color?: ColorTypes | string
-} & TextInputProps &
+} & TextProps &
   PaddingProps &
   MarginProps
 
-export const Text = ({ children, ...props }: TextProps) => {
+export const Text = ({ children, ...props }: TextCustomProps) => {
   const [style] = useComponentStyle(props, 'Text')
 
   return (
