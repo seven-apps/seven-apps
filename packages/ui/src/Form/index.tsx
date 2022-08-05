@@ -22,13 +22,12 @@ export const Form = ({ children, validation, onSubmit }: FormProps) => {
   return (
     <>
       {React.Children.map(children, (child: React.ReactElement) => {
-        const props =
-          child.props?.type === 'submit'
-            ? {
-                control,
-                onPress: handleSubmit(onSubmit),
-              }
-            : { control }
+        const props = !!child.props?.submit
+          ? {
+              control,
+              onPress: handleSubmit(onSubmit),
+            }
+          : { control }
 
         return React.cloneElement(child, props)
       })}
@@ -37,7 +36,7 @@ export const Form = ({ children, validation, onSubmit }: FormProps) => {
 }
 
 type FormControlProps = {
-  handleSubmit: UseFormHandleSubmit<FieldValues>
+  handleSubmit: any
   children: JSX.Element[]
   control: Control
 }
@@ -47,15 +46,18 @@ export const FormControl = ({
   control,
   handleSubmit,
 }: FormControlProps) => {
-  return React.Children.map(children, (child: React.ReactElement) => {
-    const props =
-      child.props?.type === 'submit'
-        ? {
-            control,
-            onPress: handleSubmit,
-          }
-        : { control }
+  return (
+    <>
+      {React.Children.map(children, (child: React.ReactElement) => {
+        const props = !!child.props?.submit
+          ? {
+              control,
+              onPress: handleSubmit,
+            }
+          : { control }
 
-    return React.cloneElement(child, props)
-  })
+        return React.cloneElement(child, props)
+      })}
+    </>
+  )
 }
