@@ -12,6 +12,10 @@ import {
   ColorProps,
 } from '@sevenapps/theme'
 
+type AnyObject = {
+  [key: string]: any
+}
+
 interface BoxInterface extends ViewProps {
   colorScheme?: string
   variant?: string
@@ -26,7 +30,8 @@ type BoxProps = BoxInterface &
   PaddingProps &
   FlexProps &
   BorderProps &
-  ColorProps
+  ColorProps &
+  AnyObject
 
 export const Box = ({ children, row, center, ...props }: BoxProps) => {
   let [style] = useComponentStyle(props, 'Box')
