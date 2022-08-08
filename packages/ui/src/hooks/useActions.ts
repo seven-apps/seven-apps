@@ -2,8 +2,9 @@
 import { useEffect } from 'react'
 
 let subscribers = []
+export let act: any = {}
 
-const subscribe = (filter, callback) => {
+const subscribe = (filter: string, callback) => {
   if (filter === undefined || filter === null) return undefined
   if (callback === undefined || callback === null) return undefined
 
@@ -13,10 +14,14 @@ const subscribe = (filter, callback) => {
   }
 }
 
-const subscribeArray = (array: [string, string][]) => {
-  for (let index = 0; index < array.length; index++) {
-    subscribe(array[index][0], array[index][1])
-  }
+const subscribeActions = (actions) => {
+  Object.keys(actions).forEach((type) => {
+    act = {
+      ...act,
+      [type]: type,
+    }
+    subscribe(type, actions[type])
+  })
 }
 
 export const dispatch = (event, ...props) => {
@@ -32,69 +37,18 @@ export const dispatch = (event, ...props) => {
   })
 }
 
-const useActions = (actions, deps = []) => {
+export const useActions = (actions, deps = []) => {
   useEffect(() => {
-    if (Array.isArray(actions)) subscribeArray(array)
-
-    return subscribe(actions.type, actions.action)
+    return subscribeActions(actions)
   }, deps)
-  return dispatch
-}
-
-export default useActions
-
-/* 
-import { useEffect } from 'react'
-
-let subscribers = []
-
-const subscribe = (filter, callback) => {
-  if (filter === undefined || filter === null) return undefined
-  if (callback === undefined || callback === null) return undefined
-
-  subscribers = [...subscribers, [filter, callback]]
-
-  return () => {
-    subscribers = subscribers.filter((subscriber) => subscriber[1] !== callback)
-  }
-}
-
-export const dispatch = (event) => {
-  let { type } = event
-  if (typeof event === 'string') type = event
-
-  const args = []
-  if (typeof event === 'string') args.push({ type })
-  else args.push(event)
-
-  subscribers.forEach(([filter, callback]) => {
-    if (typeof filter === 'string' && filter !== type) return
-    if (Array.isArray(filter) && !filter.includes(type)) return
-    if (filter instanceof RegExp && !filter.test(type)) return
-    if (typeof filter === 'function' && !filter(...args)) return
-
-    callback(...args)
-  })
-}
-
-const useBus = (type, callback, deps = []) => {
-  useEffect(() => subscribe(type, callback), deps)
 
   return dispatch
 }
 
-const useBus = (type, callback, deps = []) => {
-  useEffect(() => subscribe(type, callback), deps)
+export const useAction = (type, action, deps = []) => {
+  useEffect(() => {
+    return subscribe(type, action)
+  }, deps)
 
   return dispatch
 }
-
-export const useManyBus = (array, deps = []) => {
-  useEffect(() => subscribeArray(array), deps)
-
-  return dispatch
-}
-
-export default useBus
-
-*/
