@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useComponentStyle } from '@sevenapps/theme'
 
-import Modal from 'react-native-modal'
+import ModalComponent from 'react-native-modal'
 
 import { dispatch, act, useActions } from '../hooks'
 import { Text } from '../Text'
 import { Box } from '../Box'
 import { Button } from '../Button'
 
-export const openModal = (data) => dispatch(act.open, data)
-export const closeModal = () => dispatch(act.close)
+export const modal = {
+  open: (data) => dispatch(act.open, data),
+  close: () => dispatch(act.close),
+}
 
 const initialStateControl = {
   open: false,
@@ -23,7 +25,7 @@ const initialStateControl = {
   labelAssistantButton: null,
 }
 
-export const ModalComponent = (props) => {
+export const Modal = (props) => {
   const [style, otherStyles] = useComponentStyle(props, 'Modal', [
     'title',
     'header',
@@ -31,7 +33,6 @@ export const ModalComponent = (props) => {
     'mainButton',
     'assistantButton',
   ])
-  console.log(props)
   const [controlModal, setControlModal] = useState(initialStateControl)
   const {
     open,
@@ -51,8 +52,8 @@ export const ModalComponent = (props) => {
   })
 
   return (
-    <Modal
-      onBackdropPress={closeModal}
+    <ModalComponent
+      onBackdropPress={modal.close}
       backdropOpacity={0.5}
       isVisible={open}
       style={{
@@ -76,7 +77,7 @@ export const ModalComponent = (props) => {
           {!!body && body}
 
           {labelMainButton && (
-            <Button mt="md" onPress={mainButton || closeModal}>
+            <Button mt="md" onPress={mainButton || modal.close}>
               {labelMainButton}
             </Button>
           )}
@@ -85,13 +86,13 @@ export const ModalComponent = (props) => {
             <Button
               variant="link"
               mt="md"
-              onPress={assistantButton || closeModal}
+              onPress={assistantButton || modal.close}
             >
               {labelAssistantButton}
             </Button>
           )}
         </Box>
       </Box>
-    </Modal>
+    </ModalComponent>
   )
 }
