@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useComponentStyle } from '@sevenapps/theme'
 
-import ModalComponent from 'react-native-modal'
+import ModalComponent, { ModalProps } from 'react-native-modal'
 
 import { dispatch, act, useActions } from '../hooks'
 import { Text } from '../Text'
@@ -19,16 +19,29 @@ const initialStateControl = {
   title: null,
   body: null,
   close: null,
+  header: null,
   mainButton: null,
   labelMainButton: null,
   assistantButton: null,
   labelAssistantButton: null,
+  onCloseButton: null,
 }
 
-export const Modal = (props) => {
+type ModalCustomProps = {
+  HeaderLeftComponent?: React.ReactNode
+  HeaderRightComponent?: React.ReactNode
+  children?: null
+}
+
+export const Modal = ({
+  HeaderLeftComponent,
+  HeaderRightComponent,
+  ...props
+}: ModalProps & ModalCustomProps) => {
   const [style, otherStyles] = useComponentStyle(props, 'Modal', [
     'title',
     'header',
+    'content',
     'description',
     'mainButton',
     'assistantButton',
@@ -39,6 +52,7 @@ export const Modal = (props) => {
     description,
     title,
     body,
+    header,
     close,
     mainButton,
     labelMainButton,
@@ -63,12 +77,39 @@ export const Modal = (props) => {
     >
       <Box {...style}>
         {title && (
-          <Box {...otherStyles.header}>
-            <Text {...otherStyles.title}>{title}</Text>
+          <Box
+            center={!HeaderLeftComponent || !HeaderRightComponent}
+            row
+            {...{
+              ...otherStyles.header,
+              ...(HeaderLeftComponent || HeaderRightComponent
+                ? { justifyContent: 'space-between' }
+                : {}),
+            }}
+          >
+            {!!header ? (
+              header
+            ) : (
+              <>
+                {HeaderLeftComponent ? (
+                  HeaderLeftComponent
+                ) : (
+                  <Box h={27.5} w={27.5} />
+                )}
+
+                <Text {...otherStyles.title}>{title}</Text>
+
+                {HeaderRightComponent ? (
+                  HeaderRightComponent
+                ) : (
+                  <Box h={27.5} w={27.5} />
+                )}
+              </>
+            )}
           </Box>
         )}
 
-        <Box p="2xl" w="100%">
+        <Box {...otherStyles.content}>
           {/* add icon  */}
           {description && (
             <Text {...otherStyles.description}>{description}</Text>
