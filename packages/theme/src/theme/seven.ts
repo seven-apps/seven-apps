@@ -4,32 +4,32 @@ import fontSizes from '../foundation/fontSizes'
 
 export type SevenThemeProps = typeof sevenTheme
 
-const sevenTheme = {
+const theme = {
   sizes,
   colors,
   fontSizes,
   components: {},
 }
 
-export const withSevenTheme = (theme: any) => {
+export const sevenTheme = (customTheme: any) => {
   return {
-    ...sevenTheme,
-    ...(theme || {}),
+    ...theme,
+    ...(customTheme || {}),
     colors: {
-      ...sevenTheme.colors,
-      ...(theme.colors || {}),
+      ...theme.colors,
+      ...(customTheme.colors || {}),
     },
     sizes: {
-      ...sevenTheme.sizes,
-      ...(theme.sizes || {}),
+      ...theme.sizes,
+      ...(customTheme.sizes || {}),
     },
     fontSizes: {
-      ...sevenTheme.fontSizes,
       ...theme.fontSizes,
+      ...customTheme.fontSizes,
     },
     components: {
-      ...sevenTheme.components,
-      ...(theme.components || {}),
+      ...theme.components,
+      ...(customTheme.components || {}),
     },
   }
 }

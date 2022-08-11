@@ -11,6 +11,7 @@ import { Button } from '../Button'
 export const modal = {
   open: (data) => dispatch(act.open, data),
   close: () => dispatch(act.close),
+  set: (data) => dispatch(act.set, data),
 }
 
 const initialStateControl = {
@@ -25,6 +26,7 @@ const initialStateControl = {
   assistantButton: null,
   labelAssistantButton: null,
   onCloseButton: null,
+  customStyle: {},
 }
 
 type ModalCustomProps = {
@@ -58,11 +60,13 @@ export const Modal = ({
     labelMainButton,
     assistantButton,
     labelAssistantButton,
+    customStyle,
   } = controlModal
 
   useActions({
     open: (data) => setControlModal({ open: true, ...data }),
     close: () => setControlModal(initialStateControl),
+    set: (data) => setControlModal((state) => ({ ...state, ...data })),
   })
 
   return (
@@ -75,7 +79,7 @@ export const Modal = ({
         margin: 0,
       }}
     >
-      <Box {...style}>
+      <Box {...{ ...style, ...customStyle }}>
         {title && (
           <Box
             center={!HeaderLeftComponent || !HeaderRightComponent}
